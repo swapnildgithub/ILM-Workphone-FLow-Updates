@@ -1,0 +1,5 @@
+C:\HR-Code\HR Code - Elanco Release\O365POC\ReportingMAExtension\obj\Debug\ReportingMAExtension.dll
+C:\HR-Code\HR Code - Elanco Release\O365POC\ReportingMAExtension\obj\Debug\ReportingMAExtension.pdb
+C:\CODE\HR-Code\HCM and Workday Release\MIM Code - Task1_MA Retirements\O365 Solution\ReportingMAExtension\obj\Debug\ReportingMAExtension.csprojResolveAssemblyReference.cache
+C:\CODE\HR-Code\HCM and Workday Release\MIM Code - Task1_MA Retirements\O365 Solution\ReportingMAExtension\obj\Debug\ReportingMAExtension.dll
+C:\CODE\HR-Code\HCM and Workday Release\MIM Code - Task1_MA Retirements\O365 Solution\ReportingMAExtension\obj\Debug\ReportingMAExtension.pdb

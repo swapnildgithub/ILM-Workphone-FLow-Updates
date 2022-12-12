@@ -1,0 +1,18 @@
+C:\MIIS POC JAI\MA_Projects_Including_Exchange\MA_Projects\MVExtension_AUDFMA\obj\Debug\ResolveAssemblyReference.cache
+C:\MIIS POC JAI\MA_Projects_Including_Exchange\MA_Projects\MVExtension_AUDFMA\obj\Debug\MVExtension_AUDFMA.dll
+C:\MIIS POC JAI\MA_Projects_Including_Exchange\MA_Projects\MVExtension_AUDFMA\obj\Debug\MVExtension_AUDFMA.pdb
+C:\Documents and Settings\V0X4745-AD\Desktop\AUDF\MVExtension_AUDFMA\obj\Release\ResolveAssemblyReference.cache
+C:\Documents and Settings\V0X4745-AD\Desktop\AUDF\MVExtension_AUDFMA\obj\Release\MVExtension_AUDFMA.dll
+C:\Documents and Settings\V0X4745-AD\Desktop\AUDF\MVExtension_AUDFMA\obj\Debug\ResolveAssemblyReference.cache
+C:\Documents and Settings\V0X4745-AD\Desktop\AUDF\MVExtension_AUDFMA\obj\Debug\MVExtension_AUDFMA.dll
+C:\Documents and Settings\V0X4745-AD\Desktop\AUDF\MVExtension_AUDFMA\obj\Debug\MVExtension_AUDFMA.pdb
+E:\ILM_POC\MA_Projects\MVExtension_AUDFMA\obj\Debug\ResolveAssemblyReference.cache
+E:\ILM_POC\MA_Projects\MVExtension_AUDFMA\obj\Debug\MVExtension_AUDFMA.dll
+E:\ILM_POC\MA_Projects\MVExtension_AUDFMA\obj\Debug\MVExtension_AUDFMA.pdb
+E:\ILM_POC\MA_Projects\MVExtension_AUDFMA\obj\Release\ResolveAssemblyReference.cache
+E:\ILM_POC\MA_Projects\MVExtension_AUDFMA\obj\Release\MVExtension_AUDFMA.dll
+C:\Program Files\Microsoft Identity Integration Server\Extensions\MVExtension_AUDFMA.dll
+C:\Program Files\Microsoft Identity Integration Server\Extensions\MVExtension_AUDFMA.pdb
+C:\Documents and Settings\V0X4745-AD\Desktop\New Folder\MA_Projects\MVExtension_AUDFMA\obj\Debug\ResolveAssemblyReference.cache
+C:\Documents and Settings\V0X4745-AD\Desktop\New Folder\MA_Projects\MVExtension_AUDFMA\obj\Debug\MVExtension_AUDFMA.dll
+C:\Documents and Settings\V0X4745-AD\Desktop\New Folder\MA_Projects\MVExtension_AUDFMA\obj\Debug\MVExtension_AUDFMA.pdb

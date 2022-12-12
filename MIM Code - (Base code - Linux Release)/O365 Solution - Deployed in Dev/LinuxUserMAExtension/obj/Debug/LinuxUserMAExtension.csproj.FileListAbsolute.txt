@@ -1,0 +1,3 @@
+C:\HR-Code\HR Code - Elanco Release\O365POC\LinuxUserMAExtension\obj\Debug\LinuxUserMAExtension.csprojResolveAssemblyReference.cache
+C:\HR-Code\HR Code - Elanco Release\O365POC\LinuxUserMAExtension\obj\Debug\LinuxUserMAExtension.dll
+C:\HR-Code\HR Code - Elanco Release\O365POC\LinuxUserMAExtension\obj\Debug\LinuxUserMAExtension.pdb

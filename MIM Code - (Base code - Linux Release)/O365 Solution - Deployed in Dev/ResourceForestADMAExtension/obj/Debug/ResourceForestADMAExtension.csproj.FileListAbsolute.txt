@@ -1,0 +1,14 @@
+C:\HR-Code\HR Code - Elanco Release\O365POC\ResourceForestADMAExtension\obj\Debug\ResourceForestADMAExtension.dll
+C:\HR-Code\HR Code - Elanco Release\O365POC\ResourceForestADMAExtension\obj\Debug\ResourceForestADMAExtension.pdb
+C:\HR-Code\HR Code - Elanco Release\O365POC\ResourceForestADMAExtension\obj\Debug\ResourceForestADMAExtension.csprojResolveAssemblyReference.cache
+C:\CODE\HR-Code\HCM and Workday Release\MIM Code - Task1_MA Retirements\O365 Solution\ResourceForestADMAExtension\obj\Debug\ResourceForestADMAExtension.csprojResolveAssemblyReference.cache
+C:\CODE\HR-Code\HCM and Workday Release\MIM Code - Task1_MA Retirements\O365 Solution\ResourceForestADMAExtension\obj\Debug\ResourceForestADMAExtension.dll
+C:\CODE\HR-Code\HCM and Workday Release\MIM Code - Task1_MA Retirements\O365 Solution\ResourceForestADMAExtension\obj\Debug\ResourceForestADMAExtension.pdb
+C:\CODE\HR-Code\HCM and Workday Release\MIM Code - Task_2_MailNickName and UPN Update\O365 Solution\ResourceForestADMAExtension\obj\Debug\ResourceForestADMAExtension.csprojResolveAssemblyReference.cache
+C:\CODE\HR-Code\HCM and Workday Release\MIM Code - Task_2_MailNickName and UPN Update\O365 Solution\ResourceForestADMAExtension\obj\Debug\ResourceForestADMAExtension.dll
+C:\CODE\HR-Code\HCM and Workday Release\MIM Code - Task_2_MailNickName and UPN Update\O365 Solution\ResourceForestADMAExtension\obj\Debug\ResourceForestADMAExtension.pdb
+C:\Program Files\Microsoft Forefront Identity Manager\2010\Synchronization Service\Extensions\ResourceForestADMAExtension.dll
+C:\Program Files\Microsoft Forefront Identity Manager\2010\Synchronization Service\Extensions\ResourceForestADMAExtension.pdb
+C:\CODE\HR-Code\WorkPhone Flow Updates - May 2021\MIM Code - (Base code - Linux Release)\O365 Solution\ResourceForestADMAExtension\obj\Debug\ResourceForestADMAExtension.csprojResolveAssemblyReference.cache
+C:\CODE\HR-Code\WorkPhone Flow Updates - May 2021\MIM Code - (Base code - Linux Release)\O365 Solution\ResourceForestADMAExtension\obj\Debug\ResourceForestADMAExtension.dll
+C:\CODE\HR-Code\WorkPhone Flow Updates - May 2021\MIM Code - (Base code - Linux Release)\O365 Solution\ResourceForestADMAExtension\obj\Debug\ResourceForestADMAExtension.pdb

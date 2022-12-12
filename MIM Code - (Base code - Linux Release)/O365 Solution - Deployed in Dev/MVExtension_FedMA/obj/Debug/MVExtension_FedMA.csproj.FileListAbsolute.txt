@@ -1,0 +1,9 @@
+C:\HR-Code\HR Code - Elanco Release\O365POC\MVExtension_FedMA\obj\Debug\MVExtension_FedMA.csprojResolveAssemblyReference.cache
+C:\HR-Code\HR Code - Elanco Release\O365POC\MVExtension_FedMA\obj\Debug\MVExtension_FedMA.dll
+C:\HR-Code\HR Code - Elanco Release\O365POC\MVExtension_FedMA\obj\Debug\MVExtension_FedMA.pdb
+C:\CODE\HR-Code\HR Code - Elanco Release\O365POC - No TFS binding\MVExtension_FedMA\obj\Debug\MVExtension_FedMA.csprojResolveAssemblyReference.cache
+C:\CODE\HR-Code\HR Code - Elanco Release\O365POC - No TFS binding\MVExtension_FedMA\obj\Debug\MVExtension_FedMA.dll
+C:\CODE\HR-Code\HR Code - Elanco Release\O365POC - No TFS binding\MVExtension_FedMA\obj\Debug\MVExtension_FedMA.pdb
+C:\CODE\HR-Code\HR Code - Initial Pwd Update\O365 Solution\MVExtension_FedMA\obj\Debug\MVExtension_FedMA.csprojResolveAssemblyReference.cache
+C:\CODE\HR-Code\HR Code - Initial Pwd Update\O365 Solution\MVExtension_FedMA\obj\Debug\MVExtension_FedMA.dll
+C:\CODE\HR-Code\HR Code - Initial Pwd Update\O365 Solution\MVExtension_FedMA\obj\Debug\MVExtension_FedMA.pdb

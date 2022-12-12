@@ -1,0 +1,6 @@
+C:\Program Files\Microsoft Identity Integration Server\Extensions\MVExtension_FedMA.dll
+E:\ILM_POC\MA_Projects\MVExtension_FedMA\obj\Debug\ResolveAssemblyReference.cache
+E:\ILM_POC\MA_Projects\MVExtension_FedMA\obj\Debug\MVExtension_FedMA.dll
+E:\ILM_POC\MA_Projects\MVExtension_FedMA\obj\Debug\MVExtension_FedMA.pdb
+E:\ILM_POC\MA_Projects\MVExtension_FedMA\obj\Release\ResolveAssemblyReference.cache
+E:\ILM_POC\MA_Projects\MVExtension_FedMA\obj\Release\MVExtension_FedMA.dll

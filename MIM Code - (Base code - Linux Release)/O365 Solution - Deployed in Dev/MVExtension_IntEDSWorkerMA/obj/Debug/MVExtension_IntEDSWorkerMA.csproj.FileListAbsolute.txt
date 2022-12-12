@@ -1,0 +1,2 @@
+C:\HR-Code\HR Code - Elanco Release\O365POC\MVExtension_IntEDSWorkerMA\obj\Debug\MVExtension_IntEDSWorkerMA.dll
+C:\HR-Code\HR Code - Elanco Release\O365POC\MVExtension_IntEDSWorkerMA\obj\Debug\MVExtension_IntEDSWorkerMA.pdb

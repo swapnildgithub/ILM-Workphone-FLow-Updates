@@ -1,0 +1,621 @@
+  <rules-extension-properties>
+<environment>dev</environment>
+<management-agents>
+  <!--Start - 10-16-2017, Added tag for Unix Service Account OU-->
+  <!--<UnixServiceAccounts>
+    <UnixServiceAccountsOU>unix privileged accounts</UnixServiceAccountsOU>
+  </UnixServiceAccounts> -->
+  <!--End - 10-16-2017, Added tag for Unix Service Account OU-->
+  <localpoc>
+		<ad-ma>
+			<parentOU>OU=Dev,OU=Standard Accounts,OU=Domain Accounts,DC=rfp,DC=icepoc,DC=com</parentOU>
+			<provision>Z</provision>			
+			<toggledisplayname>ACEGH</toggledisplayname>
+			<qcEligibleEmpCodes>ADEGH</qcEligibleEmpCodes>
+			<lcsflagoff>Z</lcsflagoff>
+			<siteconfigfile>localPOC.xml</siteconfigfile>
+			<version>ILM R4</version>
+			<ttl>7</ttl>
+			<bogusdomain>inactiveforwarder.com</bogusdomain>
+			<grpOU>Ou=Dev,OU=universal Groups,Ou=Groups,DC=amp,DC=icepoc,DC=com</grpOU>
+			<RFgrpOU>Ou=Dev,OU=universal Groups,Ou=Groups,DC=rfp,DC=icepoc,DC=com</RFgrpOU>
+			<AFLogsloc>C:\MIISJobs\</AFLogsloc>
+                        <AFLogsSwitch>Y</AFLogsSwitch>
+			<timetoretaindisablement>1</timetoretaindisablement>
+			<timeforpwdlastset>1</timeforpwdlastset>
+			<MinInitPwdLength>16</MinInitPwdLength>
+			<MaxInitPwdLength>16</MaxInitPwdLength>
+
+		</ad-ma>
+		<eds-ma>
+			<accountou>ou=account,o=lilly,dc=com</accountou>
+			<workerou>ou=worker,o=lilly,dc=com</workerou>
+			<extou>ou=extaccount,o=lilly,dc=com</extou>
+		</eds-ma>
+		<adam>
+			<globaldiroU>OU=GLOBALDIR,DC=icepoc,DC=com</globaldiroU>
+			<MinInitPwdLength>16</MinInitPwdLength>
+			<MaxInitPwdLength>16</MaxInitPwdLength>
+		</adam>
+	</localpoc>
+	<poc>
+		<ad-ma>
+			<parentOU>OU=Standard Accounts,OU=Domain Accounts,DC=rfp,DC=icepoc,DC=com</parentOU>			
+			<provision>Z</provision>			
+			<toggledisplayname>ACEGH</toggledisplayname>
+			<lcsflagoff>Z</lcsflagoff>
+			<siteconfigfile>POC.xml</siteconfigfile>
+			<version>ILM R4</version>
+			<ttl>7</ttl>
+			<grpOU>OU=universal Groups,Ou=Groups,DC=amp,DC=icepoc,DC=com</grpOU>
+			<RFgrpOU>OU=universal Groups,Ou=Groups,DC=rfp,DC=icepoc,DC=com</RFgrpOU>
+			<AFLogsloc>C:\MIISJobs\</AFLogsloc>
+			<AFLogsSwitch>Y</AFLogsSwitch>
+			<MinInitPwdLength>16</MinInitPwdLength>
+			<MaxInitPwdLength>16</MaxInitPwdLength>
+		</ad-ma>
+		<eds-ma>
+			<accountou>ou=account,o=lilly,dc=com</accountou>
+			<workerou>ou=worker,o=lilly,dc=com</workerou>
+			<extou>ou=extaccount,o=lilly,dc=com</extou>
+		</eds-ma>
+		<adam>
+			<globaldiroU>OU=GLOBALDIR,DC=icepoc,DC=com</globaldiroU>
+			<ttl>7</ttl>
+			<MinInitPwdLength>16</MinInitPwdLength>
+			<MaxInitPwdLength>16</MaxInitPwdLength>
+		</adam>
+	</poc>
+	<dev>
+		<ad-ma>
+			<parentOU>OU=Standard Accounts,OU=Domain Accounts,dc=rfd,dc=lilly,dc=com</parentOU>
+			<AMDomain>lfd.lilly.com</AMDomain>
+			<provision>ACDEZH</provision>
+			<toggledisplayname>ACEGH</toggledisplayname>
+			<qcEligibleEmpCodes>ACDEGH</qcEligibleEmpCodes>
+			<lcsflagoff>Z</lcsflagoff>
+			<siteconfigfile>DEV.xml</siteconfigfile>
+			<version>ILM R5</version>
+			<ttl>-1</ttl>
+			<bogusdomain>inactiveforwarder.com</bogusdomain>
+			<emplyeecode>A,C,D,E,H</emplyeecode>
+			<grpOU>OU=universal Groups,Ou=Groups,DC=lfd,DC=lilly,DC=com</grpOU>
+			<RFgrpOU>OU=universal Groups,Ou=Groups,DC=rfd,DC=lilly,DC=com</RFgrpOU>
+			<AFLogsloc>C:\MIISJobs\</AFLogsloc>
+			<AFLogsSwitch>Y</AFLogsSwitch>
+			<AdminOverrideText>ADMIN</AdminOverrideText>
+			<toggledtag> - Network</toggledtag>
+			<timetoretaindisablement>1000</timetoretaindisablement>
+			<timeforpwdlastset>90</timeforpwdlastset>
+			<runmode>PROD</runmode>	
+			<NLWSubGroupType>65</NLWSubGroupType>
+			<NLWSubGroupTypeOU>OU=Domain Accounts</NLWSubGroupTypeOU>
+			<NLWSubGroupTypeSubDomainOU>DC=LFD</NLWSubGroupTypeSubDomainOU>
+			<PVPOU>OU=Domain Accounts,OU=PVP,OU=Test,DC=APD,DC=lilly,DC=com</PVPOU>	
+			<OVAEnableFlag>OFF</OVAEnableFlag>				
+			<RFDCLDAPString>DC=rfd,DC=lilly,DC=com</RFDCLDAPString>			
+			<TNTypes>LEV,OVA,PCXSU,PTP</TNTypes>
+			<LEVType>LEV,PCXSU</LEVType>
+			<RFDC>IX1RFDADDS01.RFD.LILLY.COM</RFDC>
+			<MinInitPwdLength>16</MinInitPwdLength>
+			<MaxInitPwdLength>16</MaxInitPwdLength>
+		</ad-ma>
+		<eds-ma>
+			<accountou>ou=account,o=lilly,dc=com</accountou>
+			<workerou>ou=worker,o=lilly,dc=com</workerou>
+			<extou>ou=extaccount,o=lilly,dc=com</extou>
+		</eds-ma>
+		<adam>
+            <globaldiroU>OU=Accounts,DC=lilly,DC=com</globaldiroU>
+            <CAAcctdiroU>OU=CloudAdministrators,OU=PrivilegedAccounts,DC=Lilly,DC=com</CAAcctdiroU>
+            <PrivAcctdiroU>OU=DSAccounts,OU=PrivilegedAccounts,DC=Lilly,DC=com</PrivAcctdiroU>
+            <ServiceAcctdiroU>OU=ServiceAccounts,DC=Lilly,DC=com</ServiceAcctdiroU>
+
+
+			<ttl>7</ttl>
+			<siteconfigfile>DEV.xml</siteconfigfile>
+			<provision>ACDEZH</provision>
+			<MinInitPwdLength>16</MinInitPwdLength>
+			<MaxInitPwdLength>16</MaxInitPwdLength>
+		</adam>
+    <Exchange>
+      <exchangemailprefix>msg-d.lilly.com</exchangemailprefix>
+      <ElancoEmailSuffix>msg-d.elanco.com</ElancoEmailSuffix>
+      <AgspanEmailSuffix>msg-d.agspan.com</AgspanEmailSuffix>
+      <!--Start - 11-15-2017, Added tag for CHG1178839-->
+      <AllowableUPNDomains>msg-d.lilly.com;network.msg-d.lilly.com;avidrp.msg-d.lilly.com;network.avidrp.msg-d.lilly.com;msg-d.colucid.com;network.msg-d.colucid.com</AllowableUPNDomains>
+      <!--END - 11-15-2017, Added tag for CHG1178839-->	
+      <domainPrefix>network.</domainPrefix>	
+      <exchtransitiontime>7</exchtransitiontime>
+      <legacyExchangeDN>/o=Lilly/ou=Exchange Administrative Group (FYDIBOHF23SPDLT)/cn=Recipients/cn=g</legacyExchangeDN>
+      <exchangeFlag>TRUE</exchangeFlag>
+      <AcceptedDomainsCN>CN=Accepted Domains,CN=Transport Settings,CN=lilly,CN=Microsoft Exchange,CN=Services,CN=configuration,DC=rfd,DC=lilly,DC=com</AcceptedDomainsCN>
+      <RecipientPoliciesCN>CN=Recipient Policies,CN=Lilly,CN=Microsoft Exchange,CN=Services,CN=Configuration,DC=RFD,DC=LILLY,DC=COM</RecipientPoliciesCN>
+      <Transitionlogsloc>c:\MIISJobs\ExchangeTranstion</Transitionlogsloc>
+      <RBAC>CN=Default Role Assignment Policy,CN=Policies,CN=RBAC,CN=Lilly,CN=Microsoft Exchange,CN=Services,CN=Configuration,DC=rfd,DC=lilly,DC=com</RBAC>
+      <ExchangeLiveDate>2009-11-16</ExchangeLiveDate>
+      <CloudDomain>EliLillyd.mail.onmicrosoft.com</CloudDomain>
+       <WhereToProvision>PAC</WhereToProvision>
+      <RFDomainUPN>rfd.lilly.com</RFDomainUPN>
+    </Exchange>
+     
+	<AvailableDomains>
+		<Zone1>LFD,NAD,CSAD</Zone1>
+		<Zone2>EMAD</Zone2>
+		<Zone3>APD</Zone3>
+	</AvailableDomains>
+	<Coexistence>
+		<WhereToProvision>PAC</WhereToProvision>
+	</Coexistence>
+	<MailDomain>LillyDEV</MailDomain>
+	
+	<PACCodeForUSandPR>
+			<CODE>1000</CODE>
+			<CODE>1001</CODE>
+			<CODE>1002</CODE>
+			<CODE>1005</CODE>
+			<CODE>1006</CODE>
+			<CODE>1007</CODE>
+			<CODE>1009</CODE>
+			<CODE>1010</CODE>
+			<CODE>1011</CODE>
+			<CODE>1012</CODE>
+			<CODE>1013</CODE>
+			<CODE>1080</CODE>
+			<CODE>1081</CODE>
+			<CODE>1089</CODE>
+			<CODE>1100</CODE>
+			<CODE>1102</CODE>
+			<CODE>1104</CODE>
+			<CODE>1203</CODE>
+			<CODE>1204</CODE>
+			<CODE>1205</CODE>
+			<CODE>1210</CODE>
+			<CODE>1211</CODE>
+			<CODE>1212</CODE>
+			<CODE>1213</CODE>
+			<CODE>1216</CODE>
+			<CODE>1217</CODE>
+			<CODE>1218</CODE>
+			<CODE>1219</CODE>
+			<CODE>1220</CODE>
+			<CODE>1223</CODE>
+			<CODE>1224</CODE>
+			<CODE>1225</CODE>
+			<CODE>1230</CODE>
+			<CODE>1235</CODE>
+			<CODE>1237</CODE>
+			<CODE>1240</CODE>
+			<CODE>1250</CODE>
+			<CODE>1283</CODE>
+			<CODE>1301</CODE>
+			<CODE>1302</CODE>
+			<CODE>1303</CODE>
+			<CODE>1305</CODE>
+			<CODE>1306</CODE>
+			<CODE>1380</CODE>
+			<CODE>1383</CODE>
+			<CODE>1820</CODE>
+			<CODE>1822</CODE>
+			<CODE>1900</CODE>
+			<CODE>2400</CODE>
+			<CODE>2430</CODE>
+			<CODE>2440</CODE>
+			<CODE>2441</CODE>
+			<CODE>2442</CODE>
+			<CODE>1105</CODE>
+			<CODE>1227</CODE>
+			<CODE>1260</CODE>
+			<CODE>1292</CODE>
+			<CODE>1293</CODE>
+			<CODE>1294</CODE>
+			<CODE>1296</CODE>
+			<CODE>1297</CODE>
+
+			<!--OUS PACs for Outlook Janitor Only-->
+			<CODE>0300</CODE>
+			<CODE>0308</CODE>
+			<CODE>0315</CODE>
+			<CODE>0345</CODE>
+			<CODE>0333</CODE>
+			<CODE>0500</CODE>
+			<CODE>0501</CODE>
+			<CODE>0502</CODE>
+			<CODE>0505</CODE>
+			<CODE>0510</CODE>
+			<CODE>0511</CODE>
+			<CODE>0512</CODE>
+			<CODE>0530</CODE>
+			<CODE>0785</CODE>
+			<CODE>0786</CODE>
+			<CODE>0787</CODE>
+			<CODE>0400</CODE>			
+			<CODE>0410</CODE>
+			<CODE>0420</CODE>
+			<CODE>0200</CODE>
+			<CODE>2740</CODE>
+			<CODE>2640</CODE>
+			<CODE>2750</CODE>
+			<CODE>2660</CODE>
+			<CODE>2661</CODE>
+			<CODE>3040</CODE>
+			<CODE>2650</CODE>
+			<CODE>2651</CODE>
+			<CODE>0600</CODE>			
+			<CODE>0601</CODE>
+			<CODE>2510</CODE>
+			<CODE>0620</CODE>
+			<CODE>0621</CODE>
+			<CODE>0700</CODE>
+			<CODE>2600</CODE>
+			<CODE>2601</CODE>
+			<CODE>0610</CODE>
+			<CODE>0210</CODE>
+			<CODE>0220</CODE>
+			<CODE>0230</CODE>
+			<CODE>0240</CODE>
+			<CODE>2680</CODE>
+			<CODE>2520</CODE>
+			<CODE>2521</CODE>
+			<CODE>3110</CODE>
+			<CODE>0720</CODE>
+			<CODE>0640</CODE>
+			<CODE>0641</CODE>
+			<CODE>2657</CODE>
+			<CODE>0540</CODE>
+			<CODE>0541</CODE>
+			<CODE>0542</CODE>
+			<CODE>2700</CODE>
+			<CODE>2701</CODE>
+			<CODE>0760</CODE>
+			<CODE>0761</CODE>
+			<CODE>0762</CODE>
+			<CODE>2720</CODE>
+			<CODE>2655</CODE>
+			<CODE>2658</CODE>
+			<CODE>2656</CODE>
+			<CODE>2659</CODE>
+			<CODE>0660</CODE>
+			<CODE>0661</CODE>
+			<CODE>0560</CODE>
+			<CODE>0570</CODE>
+			<CODE>0575</CODE>
+			<CODE>0580</CODE>
+			<CODE>0003</CODE>
+			<CODE>0001</CODE>
+			<CODE>0002</CODE>
+			<CODE>0900</CODE>
+			<CODE>0901</CODE>
+			<CODE>0902</CODE>
+			<CODE>0100</CODE>
+			<CODE>0110</CODE>
+			<CODE>0111</CODE>
+			<CODE>0132</CODE>
+			<CODE>0151</CODE>
+			<CODE>0161</CODE>
+			<CODE>0780</CODE>
+			<CODE>0004</CODE>
+			<CODE>0005</CODE>
+			<CODE>0007</CODE>
+			<CODE>0008</CODE>
+			<CODE>0011</CODE>
+			<CODE>0013</CODE>
+			<CODE>0014</CODE>
+			<CODE>0022</CODE>
+			<CODE>0023</CODE>
+			<CODE>0025</CODE>
+			<CODE>0029</CODE>
+			<CODE>0040</CODE>
+			<CODE>0041</CODE>
+			<CODE>0080</CODE>
+			<CODE>0016</CODE>
+			<CODE>0017</CODE>
+			<CODE>0019</CODE>
+			<CODE>0020</CODE>
+			<CODE>0021</CODE>
+			<CODE>0038</CODE>
+			<CODE>4300</CODE>
+			<CODE>4301</CODE>
+			<CODE>4302</CODE>
+			<CODE>4304</CODE>
+			<CODE>3600</CODE>
+			<CODE>3601</CODE>
+			<CODE>3500</CODE>
+			<CODE>3511</CODE>
+			<CODE>3512</CODE>
+			<CODE>3610</CODE>
+			<CODE>3611</CODE>
+			<CODE>4150</CODE>
+			<CODE>4151</CODE>
+			<CODE>3540</CODE>
+			<CODE>3541</CODE>
+			<CODE>3545</CODE>
+			<CODE>3560</CODE>
+			<CODE>3520</CODE>
+			<CODE>3525</CODE>
+			<CODE>3580</CODE>
+			<CODE>3635</CODE>
+			<CODE>3570</CODE>
+			<CODE>3566</CODE>
+			<CODE>3620</CODE>
+			<CODE>3621</CODE>
+			<CODE>3640</CODE>
+			<CODE>3645</CODE>
+			<CODE>3650</CODE>
+			<CODE>3565</CODE>
+			<CODE>3670</CODE>
+			<CODE>3671</CODE>
+			<CODE>3673</CODE>
+			<CODE>4020</CODE>
+			<CODE>4023</CODE>
+			<CODE>4024</CODE>
+			<CODE>4025</CODE>
+			<CODE>4026</CODE>
+			<CODE>3660</CODE>
+			<CODE>3661</CODE>
+			<CODE>4031</CODE>
+			<CODE>4021</CODE>
+			<CODE>4022</CODE>
+			<CODE>4027</CODE>
+			<CODE>4028</CODE>
+			<CODE>4029</CODE>
+			<CODE>4030</CODE>
+			<CODE>4035</CODE>
+			<CODE>4036</CODE>
+			<CODE>4038</CODE>
+			<CODE>4039</CODE>
+			<CODE>4040</CODE>
+			<CODE>4041</CODE>
+			<CODE>4000</CODE>
+			<CODE>4100</CODE>
+			<CODE>2100</CODE>
+			<CODE>2560</CODE>
+			<CODE>3030</CODE>
+			<CODE>3031</CODE>
+			<CODE>2550</CODE>
+			<CODE>2103</CODE>
+			<CODE>2105</CODE>
+			<CODE>2110</CODE>
+			<CODE>2115</CODE>
+			<CODE>2120</CODE>
+			<CODE>2125</CODE>
+			<CODE>2130</CODE>
+			<CODE>2760</CODE>
+			<CODE>3060</CODE>
+			<CODE>2670</CODE>
+			<CODE>3070</CODE>
+			<CODE>2690</CODE>
+			<CODE>2500</CODE>
+			<CODE>2501</CODE>
+			<CODE>2502</CODE>
+			<CODE>2503</CODE>
+			<CODE>2504</CODE>
+			<CODE>2505</CODE>
+			<CODE>2710</CODE>
+			<CODE>2711</CODE>
+			<CODE>2530</CODE>
+			<CODE>2531</CODE>
+			<CODE>2532</CODE>
+			<CODE>2540</CODE>
+			<CODE>2303</CODE>
+			<CODE>2140</CODE>
+			<CODE>2141</CODE>
+			<CODE>2142</CODE>
+			<CODE>2462</CODE>
+			<CODE>2461</CODE>
+			<CODE>2150</CODE>
+			<CODE>2151</CODE>
+			<CODE>2160</CODE>
+			<CODE>2310</CODE>
+			<CODE>2460</CODE>
+			<CODE>2465</CODE>
+			<CODE>2330</CODE>
+			<CODE>2360</CODE>
+			<CODE>2320</CODE>
+			<CODE>2340</CODE>
+			<CODE>2463</CODE>
+			<CODE>2300</CODE>
+			<CODE>2301</CODE>
+			<CODE>2302</CODE>
+			<CODE>2304</CODE>
+			<CODE>2305</CODE>
+			<CODE>2306</CODE>
+			<CODE>2350</CODE>
+			<CODE>2351</CODE>
+			<CODE>2170</CODE>
+			<CODE>2171</CODE>
+			<CODE>2172</CODE>
+			<CODE>2464</CODE>
+			<CODE>2180</CODE>
+			<CODE>2181</CODE>
+			<CODE>3390</CODE>
+			<CODE>3250</CODE>
+			<CODE>3370</CODE>
+			<CODE>3300</CODE>
+			<CODE>3301</CODE>
+			<CODE>3302</CODE>
+			<CODE>3310</CODE>
+			<CODE>3320</CODE>
+			<CODE>4400</CODE>
+			<CODE>3360</CODE>
+			<CODE>3330</CODE>
+			<CODE>3080</CODE>
+			<CODE>3258</CODE>
+			<CODE>3252</CODE>
+			<CODE>3254</CODE>
+			<CODE>3100</CODE>
+			<CODE>3256</CODE>
+			<CODE>3260</CODE>
+			<CODE>3120</CODE>
+			<CODE>3630</CODE>
+			<CODE>3130</CODE>
+			<CODE>3131</CODE>
+			<CODE>3000</CODE>
+			<CODE>3340</CODE>
+			<CODE>3200</CODE>
+			<CODE>3201</CODE>
+			<CODE>3140</CODE>
+			<CODE>3280</CODE>
+			<CODE>3150</CODE>
+			<CODE>3290</CODE>
+			<CODE>3380</CODE>
+			<CODE>3350</CODE>
+			<CODE>3020</CODE>
+			<CODE>3021</CODE>
+			<CODE>3240</CODE>
+			<CODE>3230</CODE>
+			<CODE>3521</CODE>
+			<CODE>3522</CODE>
+			<CODE>3081</CODE>
+			<CODE>3101</CODE>
+			<CODE>3303</CODE>
+			<CODE>3381</CODE>
+			<CODE>3391</CODE>
+			<CODE>2152</CODE>
+			<CODE>2153</CODE>
+			<CODE>2154</CODE>
+			<CODE>2000</CODE>
+			<CODE>2010</CODE>
+			<CODE>2020</CODE>
+			<CODE>2025</CODE>
+			<CODE>2026</CODE>
+			<CODE>2027</CODE>
+			<CODE>2030</CODE>
+			<CODE>0348</CODE>
+			<CODE>0349</CODE>
+			<CODE>0350</CODE>
+			<CODE>0602</CODE>
+			<CODE>2162</CODE>
+			<CODE>3001</CODE>
+			<CODE>0042</CODE>
+			<CODE>0411</CODE>
+			<CODE>0791</CODE>
+			<CODE>3602</CODE>
+			<CODE>2173</CODE>
+			<CODE>2332</CODE>
+			<CODE>2311</CODE>
+			<CODE>2321</CODE>
+			<CODE>2466</CODE>
+			<CODE>0320</CODE>
+			<CODE>0347</CODE>
+			<CODE>0351</CODE>
+			<CODE>0788</CODE>
+			<CODE>0790</CODE>
+			<CODE>1222</CODE>
+			<CODE>1226</CODE>
+			<CODE>2307</CODE>
+			<CODE>2308</CODE>
+			<CODE>2420</CODE>
+			<CODE>2533</CODE>
+			<CODE>2702</CODE>
+			<CODE>2721</CODE>
+			<CODE>3002</CODE>
+			<CODE>3061</CODE>
+			<CODE>3546</CODE>
+			<CODE>3631</CODE>
+			<CODE>3662</CODE>
+			<CODE>3672</CODE>
+			<CODE>4152</CODE>
+			<CODE>0352</CODE>
+			<CODE>3750</CODE>
+			<CODE>4894</CODE>
+			<CODE>0543</CODE>
+			<CODE>4895</CODE>
+			
+			
+			
+	</PACCodeForUSandPR>
+	<USPRMRMPolicy>User Mailbox Policy</USPRMRMPolicy>
+	<NonUSPRMRMPolicy>Default MRM Policy</NonUSPRMRMPolicy>
+	<LocalMailboxMRMPolicy>Mailbox Policy - User Mailboxes</LocalMailboxMRMPolicy>
+	<DomainController>IX1RFDADDS01.RFD.LILLY.COM</DomainController>
+	<LillyDomainEmployee>msg-d.lilly.com</LillyDomainEmployee>
+	<LillyDomainContractor>network.msg-d.lilly.com</LillyDomainContractor>
+	<ElancoDomainEmployee>msg-d.lilly.com</ElancoDomainEmployee>
+	<ElancoDomainContractor>network.msg-d.elanco.com</ElancoDomainContractor>
+    <UPNDomain>elilillyd.mail.onmicrosoft.com</UPNDomain>
+ <MRMO365logFileLocation>C:\FIMLogs\MRMOffice365Logs.txt</MRMO365logFileLocation> 
+  <MRMLocalExchangelogFileLocation>C:\FIMLogs\MRMLocalExchangeLogs.txt</MRMLocalExchangelogFileLocation> 
+  <ExchangeMAlogFileLocation>C:\FIMLogs\ExchangeMALogs.txt</ExchangeMAlogFileLocation>
+  <SkypeForBusinessMAlogFileLocation>C:\FIMLogs\SkypeForBusinessMALogs.txt</SkypeForBusinessMAlogFileLocation> 
+  <UPNFileLocation>C:\FIMLogs\UPNMALogs.txt</UPNFileLocation> 
+<UserGroupLegalArchiveAccess>RFD\EDDArchivalSvc</UserGroupLegalArchiveAccess>
+<PreReleaseManagedFolderPolicy>CN=Messaging_PreReleaseManagedFolderPolicy,OU=Universal Groups,OU=Groups,DC=rfd,DC=lilly,DC=com</PreReleaseManagedFolderPolicy>
+<ElancoContractorDomain>network.msg-d.elanco.com</ElancoContractorDomain>
+<ElancoEmployeeDomain>msg-d.elanco.com</ElancoEmployeeDomain>
+<LillContractorDomain>network.msg-d.lilly.com</LillContractorDomain>
+<LillyEmployeeDomain>msg-d.lilly.com</LillyEmployeeDomain>
+    <Domain>RFD</Domain>
+<domainForSID>LFD</domainForSID>
+<msExchRecipientDisplayType_RemoteMailbox>-2147483642</msExchRecipientDisplayType_RemoteMailbox>
+<msExchRecipientDisplayType_LocalMailbox>1073741824</msExchRecipientDisplayType_LocalMailbox>
+<msExchRecipientDisplayType_Contact>-1073741818</msExchRecipientDisplayType_Contact>
+<msExchRecipientTypeDetails_LocalMailbox>2</msExchRecipientTypeDetails_LocalMailbox>
+<msExchRecipientTypeDetails_LocalMailboxwithoutSID>1</msExchRecipientTypeDetails_LocalMailboxwithoutSID>
+
+<msExchRecipientTypeDetails_RemoteMailbox>2147483648</msExchRecipientTypeDetails_RemoteMailbox>
+<!--msExchRecipientTypeDetails_ContactWithSID>32768</msExchRecipientTypeDetails_ContactWithSID>-->
+<!-- Modifyng Value for all mailcontact users to 128 for Exchange 2016 Mailuser testing -->
+<msExchRecipientTypeDetails_ContactWithSID>128</msExchRecipientTypeDetails_ContactWithSID>
+<msExchRecipientTypeDetails_ContactWithoutSID>128</msExchRecipientTypeDetails_ContactWithoutSID>
+<OrgUnitCode>00115327</OrgUnitCode>
+
+<AMdomainController>lfd.lilly.com:3268</AMdomainController>
+<AMDomain>lfd.lilly.com</AMDomain>
+<AMOU>DC=lfd,DC=lilly,DC=com</AMOU>
+	</dev>
+	<qa>
+		<ad-ma>			
+			<parentOU>OU=Standard Accounts,OU=Domain Accounts,dc=rfq,dc=lilly,dc=com</parentOU>
+			<provision>Z</provision>
+			<siteconfigfile>QA.xml</siteconfigfile>
+			<toggledisplayname>ACEGH</toggledisplayname>
+			<lcsflagoff>Z</lcsflagoff>
+			<version>ILM R4</version>
+			<ttl>7</ttl>
+			<MinInitPwdLength>16</MinInitPwdLength>
+			<MaxInitPwdLength>16</MaxInitPwdLength>
+
+		</ad-ma>
+		<eds-ma>
+			<accountou>ou=account,o=lilly,dc=com</accountou>
+			<workerou>ou=worker,o=lilly,dc=com</workerou>
+			<extou>ou=extaccount,o=lilly,dc=com</extou>
+		</eds-ma>
+		<adam>
+			<globaldiroU>OU=Accounts,DC=lilly,DC=com</globaldiroU>
+			<globaldiroU>OU=Accounts,DC=lilly,DC=com</globaldiroU>
+			<CAAcctdiroU>OU=CloudAdministrators,OU=PrivilegedAccounts,DC=Lilly,DC=com</CAAcctdiroU>
+			<PrivAcctdiroU>OU=DSAccounts,OU=PrivilegedAccounts,DC=Lilly,DC=com</PrivAcctdiroU>
+			<ServiceAcctdiroU>OU=ServiceAccounts,DC=Lilly,DC=com</ServiceAcctdiroU>
+			<ttl>7</ttl>
+			<MinInitPwdLength>16</MinInitPwdLength>
+			<MaxInitPwdLength>16</MaxInitPwdLength>
+
+		</adam>
+	</qa>
+	<prod>
+		<ad-ma>
+			<parentOU>OU=Standard Accounts,OU=Domain Accounts,dc=rf,dc=lilly,dc=com</parentOU>
+			<provision>Z</provision>
+			<siteconfigfile>PROD.xml</siteconfigfile>
+			<toggledisplayname>ACEGH</toggledisplayname>
+			<lcsflagoff>Z</lcsflagoff>
+			<version>ILM R4</version>
+			<ttl>7</ttl>
+			<MinInitPwdLength>16</MinInitPwdLength>
+			<MaxInitPwdLength>16</MaxInitPwdLength>
+		</ad-ma>
+		<eds-ma>
+			<accountou>ou=account,o=lilly,dc=com</accountou>
+			<workerou>ou=worker,o=lilly,dc=com</workerou>
+			<extou>ou=extaccount,o=lilly,dc=com</extou>
+		</eds-ma>
+		<adam>
+			<globaldiroU>OU=Accounts,DC=lilly,DC=com</globaldiroU>
+			<MinInitPwdLength>16</MinInitPwdLength>
+			<MaxInitPwdLength>16</MaxInitPwdLength>
+		</adam>
+	</prod>
+</management-agents>
+</rules-extension-properties>

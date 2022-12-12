@@ -1,0 +1,3 @@
+C:\HR-Code\HR Code - Elanco Release\O365POC\SADPublicationMAExtension\obj\Debug\SADPublicationMAExtension.dll
+C:\HR-Code\HR Code - Elanco Release\O365POC\SADPublicationMAExtension\obj\Debug\SADPublicationMAExtension.pdb
+C:\HR-Code\HR Code - Elanco Release\O365POC\SADPublicationMAExtension\obj\Debug\SADPublicationMAExtension.csprojResolveAssemblyReference.cache

@@ -1,0 +1,348 @@
+
+using System;
+using Microsoft.MetadirectoryServices;
+using System.Collections;
+using System.Xml;
+using System.Diagnostics;
+using System.IO;
+using System.Text;
+
+namespace Mms_Metaverse
+{
+    /// <summary>
+    /// Summary description for MVExtensionObject.
+    /// </summary>
+    public class MVExtensionObject : IMVSynchronization
+    {
+        XmlNode rnode;
+        XmlNode node;
+        string version, etypeNodeValue, timetolive, Logslocation, LogsSwitch;
+        StreamWriter objStreamWriter;
+
+        public MVExtensionObject()
+        {
+            //
+            // TODO: Add constructor logic here
+            //
+        }
+
+        void IMVSynchronization.Initialize()
+        {
+            //
+            // Initialize config details from xml file
+            //
+            try
+            {
+                const string XML_CONFIG_FILE = @"\rules-config.xml";
+                XmlDocument config = new XmlDocument();
+                string dir = Utils.ExtensionsDirectory;
+                config.Load(dir + XML_CONFIG_FILE);
+
+                rnode = config.SelectSingleNode("rules-extension-properties");
+                node = rnode.SelectSingleNode("environment");
+                string env = node.InnerText;
+                rnode = config.SelectSingleNode
+                    ("rules-extension-properties/management-agents/" + env + "/ad-ma");
+                XmlNode confignode = rnode.SelectSingleNode("siteconfigfile");
+                //Provisioning Version
+                node = rnode.SelectSingleNode("version");
+                version = node.InnerText;
+                //Get the timetolive(ttyl) value from config file
+                node = rnode.SelectSingleNode("ttl");
+                timetolive = node.InnerText;
+                //get the Users to be provisioned from config                       
+                node = rnode.SelectSingleNode("provision");
+                etypeNodeValue = node.InnerText.ToUpper();
+                //get the location for saving the log files
+                node = rnode.SelectSingleNode("AFLogsloc");
+                Logslocation = node.InnerText;
+                //get the option for logging the file. When Y then logging functionality enabled.When N logging is disabled.
+                node = rnode.SelectSingleNode("AFLogsSwitch");
+                LogsSwitch = node.InnerText;
+            }
+            catch (NullReferenceException nre)
+            {
+                // If a tag does not exist in the xml, then the stopped-extension-dll 
+                // error will be thrown.
+                throw nre;
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+        }
+
+        void IMVSynchronization.Terminate()
+        {
+            //
+            // TODO: Add termination logic here
+            //
+        }
+
+        void IMVSynchronization.Provision(MVEntry mventry)
+        {
+            ///
+            /// Provisoning for Deprovisioned MA
+            ///
+
+            ConnectedMA deprovisionedMA;
+            ConnectedMA sadMA;
+            CSEntry csentry;
+            string cSEntryType = mventry.ObjectType;
+            int connectors = 0;
+            int sadconnectors = 0;
+            string formattedDate;
+
+            try
+            {
+                switch (cSEntryType)
+                {
+                    case "person":
+                        {
+                            //Initializing MA objects and connector counts
+                            deprovisionedMA = mventry.ConnectedMAs["Deprovisioned MA"];
+                            connectors = deprovisionedMA.Connectors.Count;
+                            sadMA = mventry.ConnectedMAs["Staging Area Database MA"];
+                            sadconnectors = sadMA.Connectors.Count;
+
+                            //Deprovisioned MA has no connector
+                            if (connectors == 0)
+                            {
+                                //Also SAD MA has no connector, then a SAD object is deleted
+                                //Proceed to create a Deprovisioned MA connector
+                                if (sadconnectors == 0)
+                                {
+                                    csentry = deprovisionedMA.Connectors.StartNewConnector("Person");
+                                    csentry["EMPLOYEEID"].Value = mventry["employeeID"].Value;
+                                    //Set the inital date in Format
+                                    formattedDate = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+                                    csentry["DEPROVISIONEDDATE"].Value = formattedDate;
+                                    csentry.CommitNewConnector();
+                                }
+                            }
+                            //Deprovisioned MA has one connector
+                            else if (connectors == 1)
+                            {
+                                //Get the connector object for deprovisioning
+                                csentry = deprovisionedMA.Connectors.ByIndex[0];
+
+                                //SAD MA is not there, then check for Time to Live
+                                if (sadconnectors == 0)
+                                {
+                                    //TTL expired then call deprovision on all connected MA's
+                                    if (AccountTTLExpired(csentry["DEPROVISIONEDDATE"].Value, timetolive))
+                                    {
+                                        if (LogsSwitch.ToString()  == "Y")
+                                        {
+                                            CheckAndCreateFile();
+                                            string strtempobjestsid;
+                                            objStreamWriter = new StreamWriter(BuildFileName(), true);
+
+                                            if (mventry["objectSid"].IsPresent)
+                                            {
+                                                strtempobjestsid = ConvertByteToStringSid(mventry["objectSid"].IsPresent == false ? null : mventry["objectSid"].BinaryValue);
+                                            }
+                                            else
+                                            {
+                                                strtempobjestsid = string.Empty;
+                                            }
+                                            string strtemp = "-------------------------------------------------------" + "\r\n";
+                                            strtemp = strtemp
+                                            + " SystemID:        " + (mventry["sAMAccountName"].IsPresent == false ? string.Empty : mventry["sAMAccountName"].Value)
+                                            + "\r\n EmployeeID:      " + (mventry["employeeID"].IsPresent == false ? string.Empty : mventry["employeeID"].Value)
+                                            + "\r\n DisplayName:     " + (mventry["displayName"].IsPresent == false ? string.Empty : mventry["displayName"].Value)
+                                            + "\r\n EmployeeType:    " + (mventry["employeeType"].IsPresent == false ? string.Empty : mventry["employeeType"].Value)
+                                            + "\r\n C:               " + (mventry["c"].IsPresent == false ? string.Empty : mventry["c"].Value)
+                                            + "\r\n Personnel Area Code:  " + (mventry["personnel_area_cd"].IsPresent == false ? string.Empty : mventry["personnel_area_cd"].Value)
+                                            + "\r\n Object SID:      " + strtempobjestsid
+                                            + "\r\n Home Directory:  " + (mventry["HomeDirectory"].IsPresent == false ? string.Empty : mventry["HomeDirectory"].Value)
+                                            + "\r\n DN:              " + (mventry["msDS-SourceObjectDN"].IsPresent == false ? string.Empty : mventry["msDS-SourceObjectDN"].Value)
+                                            + "\r\n Supervisor Personal Number:  " + (mventry["EDS_Supervisor_Prsnl_Nbr"].IsPresent == false ? string.Empty : mventry["EDS_Supervisor_Prsnl_Nbr"].Value)
+                                            + "\r\n";
+                                            strtemp = strtemp + "\r\n";
+                                            //objStreamWriter.WriteLine(mventry["sAMAccountName"].Value, ",", mventry["employeeID"], mventry["displayName"],mventry["objectSid"], mventry ["employeeType"], mventry["c"], mventry["personnel_area_cd"], mventry["manager"]  );
+                                            objStreamWriter.WriteLine(strtemp);
+                                            objStreamWriter.Close();
+                                        }
+                                        mventry.ConnectedMAs.DeprovisionAll();
+                                    }
+                                }
+                                else
+                                {
+                                    //SAD MA Object connected - SAD Subscription added back the deleted row 
+                                    //Deprovision just Deprovision MA object only
+                                    csentry.Deprovision();
+                                }
+                            }
+                            else
+                            {
+                                throw (new UnexpectedDataException("Multiple connectors in MA:" + deprovisionedMA.Connectors.Count.ToString()));
+                            }
+                        }
+                        break;
+                }
+
+            }
+            // Handle any exceptions
+            catch (ObjectAlreadyExistsException)
+            {
+                // Ignore if the object already exists, join rules will join the existing object later
+            }
+            catch (AttributeNotPresentException)
+            {
+                // Ignore if the attribute on the mventry object is not available at this time
+                // For example if employee type isn't present then for those users will be ignored, 
+                // This exception is used instead of using isPresent() method.
+            }
+            //catch (NoSuchAttributeException)
+            //{
+            //    // Ignore if the attribute is not available at this time - used during development
+            //}
+            catch (Exception ex)
+            {
+                // All other exceptions re-throw to rollback the object synchronization transaction and 
+                // report the error to the run history
+                throw ex;
+            }
+        }
+
+        bool IMVSynchronization.ShouldDeleteFromMV(CSEntry csentry, MVEntry mventry)
+        {
+            //
+            // TODO: Add MV deletion logic here
+            //
+            throw new EntryPointNotImplementedException();
+        }
+        public bool AccountTTLExpired(string TerminatedDate, string TTL)
+        {
+            // If the TerminatedDate and TimeToLive attributes contain values, then
+            // add the attributes and compare to the current date. If the current date
+            // is more than or equal to the TerminatesDate and ToLiveTime value,
+            // the function returns true.
+            if (TerminatedDate.Equals(""))
+            {
+                return (false);
+            }
+            if (TTL.Equals(""))
+            {
+                return (false);
+            }
+            try
+            {
+                //Convert TerminatedDate to a DateTime object
+                DateTime StartTTLDate;
+                StartTTLDate = Convert.ToDateTime(TerminatedDate);
+                //Convert the TTL string to a double
+                double DaysToTTL = Convert.ToDouble(TTL); //TTL
+                DateTime TimeToLiveDate = new DateTime();                
+                //Add DaysToTTL to StartTTLDate to get TimeToLiveDate
+                TimeToLiveDate = StartTTLDate.AddDays(DaysToTTL);
+                //Round the DateTime to starting of the Day
+                DateTime CurrentDateTimeRounded = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
+                DateTime TimeToLiveDateRounded = new DateTime(TimeToLiveDate.Year, TimeToLiveDate.Month, TimeToLiveDate.Day);
+                if (CurrentDateTimeRounded > TimeToLiveDateRounded)
+                {
+                    return (true);
+                }
+            }
+            catch
+            {
+                // Handle exceptions here.
+            }
+            return false;
+        }
+
+        public string BuildFileName()
+        {
+            string strFileName = (DateTime.Now).Year.ToString() + "-" + (((DateTime.Now).Month <= 9) ? "0" + (DateTime.Now).Month.ToString() : (DateTime.Now).Month.ToString()) + "-" + ((DateTime.Now).Day.ToString().Length == 1 ? ("0" + (DateTime.Now).Day.ToString()) : (DateTime.Now).Day.ToString()) + "_DEPROVISION_INFO.txt";
+            return Logslocation + strFileName;
+        }
+
+        public void CheckAndCreateFile()
+        {
+            string strFileName = BuildFileName();
+            FileInfo objFileInfo;
+            try
+            {
+                if (!(File.Exists(strFileName)))   // If file does not exists then create
+                {
+                    objFileInfo = new FileInfo(strFileName);
+                }
+            }
+            catch
+            {
+                objFileInfo = null;
+            }
+            finally
+            {
+                objFileInfo = null;
+            }
+        }
+
+
+        /// <summary>
+        /// takes the Byte array and returns integer equivalent in perticular format
+        /// </summary>
+        /// <param name="strSid"></param>
+        /// <returns></returns>
+                private string ConvertByteToStringSid(Byte[] sidBytes)
+        {
+            short sSubAuthorityCount = 0;
+            StringBuilder strSid;
+
+            try
+            {
+                // Add SID revision.
+                strSid = new StringBuilder();
+                strSid.Append("S-");
+                strSid.Append(sidBytes[0].ToString());
+                sSubAuthorityCount = Convert.ToInt16(sidBytes[1]);
+
+                // Next six bytes are SID authority value.
+                if (sidBytes[2] != 0 || sidBytes[3] != 0)
+                {
+                    string strAuth = String.Format("0x{0:2x}{1:2x}{2:2x}{3:2x}{4:2x}{5:2x}",
+                                (Int16)sidBytes[2],
+                                (Int16)sidBytes[3],
+                                (Int16)sidBytes[4],
+                                (Int16)sidBytes[5],
+                                (Int16)sidBytes[6],
+                                (Int16)sidBytes[7]);
+                    strSid.Append("-");
+                    strSid.Append(strAuth);
+                }
+                else
+                {
+                    Int64 iVal = (Int32)(sidBytes[7]) +
+                            (Int32)(sidBytes[6] << 8) +
+                            (Int32)(sidBytes[5] << 16) +
+                            (Int32)(sidBytes[4] << 24);
+                    strSid.Append("-");
+                    strSid.Append(iVal.ToString());
+                }
+                // Get sub authority count...
+                int idxAuth = 0;
+                int intCount = 0;
+                for (int i = 0; i < sSubAuthorityCount; i++)
+                {
+                    idxAuth = 8 + i * 4;
+                    intCount = intCount + 1;
+                    UInt32 iSubAuth = BitConverter.ToUInt32(sidBytes, idxAuth);
+                    strSid.Append("-");
+                    strSid.Append(iSubAuth.ToString());
+                }
+                return strSid.ToString();
+            }
+            catch
+            {
+                strSid = null;
+                return "";
+            }
+            finally
+            {
+                strSid = null;
+            }
+        }
+
+    }
+}

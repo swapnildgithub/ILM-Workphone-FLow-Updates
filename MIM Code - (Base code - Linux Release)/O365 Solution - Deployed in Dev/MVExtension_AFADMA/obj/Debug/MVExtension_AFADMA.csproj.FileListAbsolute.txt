@@ -1,0 +1,8 @@
+C:\HR-Code\HR Code - Elanco Release\O365POC\MVExtension_AFADMA\obj\Debug\MVExtension_AFADMA.csprojResolveAssemblyReference.cache
+C:\HR-Code\HR Code - Elanco Release\O365POC\MVExtension_AFADMA\obj\Debug\MVExtension_AFADMA.dll
+C:\HR-Code\HR Code - Elanco Release\O365POC\MVExtension_AFADMA\obj\Debug\MVExtension_AFADMA.pdb
+C:\Program Files\Microsoft Forefront Identity Manager\2010\Synchronization Service\Extensions\MVExtension_AFADMA.dll
+C:\Program Files\Microsoft Forefront Identity Manager\2010\Synchronization Service\Extensions\MVExtension_AFADMA.pdb
+C:\CODE\HR-Code\MIM_Linux Improvement Release July 2020\MIM Code - Linux Improvement (Base code HCM plus reporting tool)\O365 Solution\MVExtension_AFADMA\obj\Debug\MVExtension_AFADMA.csprojResolveAssemblyReference.cache
+C:\CODE\HR-Code\MIM_Linux Improvement Release July 2020\MIM Code - Linux Improvement (Base code HCM plus reporting tool)\O365 Solution\MVExtension_AFADMA\obj\Debug\MVExtension_AFADMA.dll
+C:\CODE\HR-Code\MIM_Linux Improvement Release July 2020\MIM Code - Linux Improvement (Base code HCM plus reporting tool)\O365 Solution\MVExtension_AFADMA\obj\Debug\MVExtension_AFADMA.pdb

@@ -1,0 +1,2 @@
+C:\HR-Code\HR Code - Elanco Release\O365POC\MVExtension_TNMSUserMA\obj\Debug\MVExtension_TNMSUserMA.dll
+C:\HR-Code\HR Code - Elanco Release\O365POC\MVExtension_TNMSUserMA\obj\Debug\MVExtension_TNMSUserMA.pdb

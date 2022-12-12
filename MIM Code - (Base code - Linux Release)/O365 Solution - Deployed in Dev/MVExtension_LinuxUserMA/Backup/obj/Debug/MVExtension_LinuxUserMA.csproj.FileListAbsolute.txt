@@ -1,0 +1,4 @@
+C:\HR-Code\HR Code - Elanco Release\O365POC\MVExtension_LinuxUserMA\obj\Debug\MVExtension_LinuxUserMA.csprojResolveAssemblyReference.cache
+C:\HR-Code\HR Code - Elanco Release\O365POC\MVExtension_LinuxUserMA\obj\Debug\MVExtension_LinuxUserMA.dll
+C:\HR-Code\HR Code - Elanco Release\O365POC\MVExtension_LinuxUserMA\obj\Debug\MVExtension_LinuxUserMA.pdb
+C:\CODE\HR-Code\HCM and Workday Release\MIM Code - Task_3_IDM SAD mapping with Mnn changes\O365 Solution - with Mnn Changes\MVExtension_LinuxUserMA\obj\Debug\MVExtension_LinuxUserMA.csprojResolveAssemblyReference.cache

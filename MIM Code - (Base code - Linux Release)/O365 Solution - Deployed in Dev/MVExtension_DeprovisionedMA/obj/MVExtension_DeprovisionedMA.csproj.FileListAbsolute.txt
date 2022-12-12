@@ -1,0 +1,6 @@
+C:\Program Files\Microsoft Identity Integration Server\Extensions\MVExtension_DeprovisionedMA.dll
+E:\ILM_POC\MA_Projects\MVExtension_DeprovisionedMA\obj\Debug\ResolveAssemblyReference.cache
+E:\ILM_POC\MA_Projects\MVExtension_DeprovisionedMA\obj\Debug\MVExtension_DeprovisionedMA.dll
+E:\ILM_POC\MA_Projects\MVExtension_DeprovisionedMA\obj\Debug\MVExtension_DeprovisionedMA.pdb
+E:\ILM_POC\MA_Projects\MVExtension_DeprovisionedMA\obj\Release\ResolveAssemblyReference.cache
+E:\ILM_POC\MA_Projects\MVExtension_DeprovisionedMA\obj\Release\MVExtension_DeprovisionedMA.dll
