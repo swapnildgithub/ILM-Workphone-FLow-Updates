@@ -1,0 +1,6 @@
+C:\HR-Code\HR Code - Elanco Release\O365POC\CommonLayer\bin\Release\CommonLayer.dll
+C:\HR-Code\HR Code - Elanco Release\O365POC\CommonLayer\bin\Release\CommonLayer.pdb
+C:\HR-Code\HR Code - Elanco Release\O365POC\CommonLayer\bin\Release\Microsoft.MetadirectoryServices.dll
+C:\HR-Code\HR Code - Elanco Release\O365POC\CommonLayer\obj\Release\CommonLayer.csprojResolveAssemblyReference.cache
+C:\HR-Code\HR Code - Elanco Release\O365POC\CommonLayer\obj\Release\CommonLayer.dll
+C:\HR-Code\HR Code - Elanco Release\O365POC\CommonLayer\obj\Release\CommonLayer.pdb

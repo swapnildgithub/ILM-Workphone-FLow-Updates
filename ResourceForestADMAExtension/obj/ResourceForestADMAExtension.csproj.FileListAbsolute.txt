@@ -1,0 +1,6 @@
+C:\Program Files\Microsoft Identity Integration Server\Extensions\ResourceForestADMAExtension.dll
+E:\ILM_POC\MA_Projects\ResourceForestADMAExtension\obj\Debug\ResolveAssemblyReference.cache
+E:\ILM_POC\MA_Projects\ResourceForestADMAExtension\obj\Debug\ResourceForestADMAExtension.dll
+E:\ILM_POC\MA_Projects\ResourceForestADMAExtension\obj\Debug\ResourceForestADMAExtension.pdb
+E:\ILM_POC\MA_Projects\ResourceForestADMAExtension\obj\Release\ResolveAssemblyReference.cache
+E:\ILM_POC\MA_Projects\ResourceForestADMAExtension\obj\Release\ResourceForestADMAExtension.dll

@@ -1,0 +1,3 @@
+C:\HR-Code\HR Code - Elanco Release\O365POC\MVExtension_ReportingMA\obj\Debug\MVExtension_ReportingMA.csprojResolveAssemblyReference.cache
+C:\HR-Code\HR Code - Elanco Release\O365POC\MVExtension_ReportingMA\obj\Debug\MVExtension_ReportingMA.dll
+C:\HR-Code\HR Code - Elanco Release\O365POC\MVExtension_ReportingMA\obj\Debug\MVExtension_ReportingMA.pdb

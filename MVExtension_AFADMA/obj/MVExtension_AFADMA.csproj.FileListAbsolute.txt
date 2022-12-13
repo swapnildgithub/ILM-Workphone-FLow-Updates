@@ -1,0 +1,6 @@
+C:\Program Files\Microsoft Identity Integration Server\Extensions\MVExtension_AFADMA.dll
+E:\ILM_POC\MA_Projects\MVExtension_AFADMA\obj\Debug\ResolveAssemblyReference.cache
+E:\ILM_POC\MA_Projects\MVExtension_AFADMA\obj\Debug\MVExtension_AFADMA.dll
+E:\ILM_POC\MA_Projects\MVExtension_AFADMA\obj\Debug\MVExtension_AFADMA.pdb
+E:\ILM_POC\MA_Projects\MVExtension_AFADMA\obj\Release\ResolveAssemblyReference.cache
+E:\ILM_POC\MA_Projects\MVExtension_AFADMA\obj\Release\MVExtension_AFADMA.dll

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?><?xml-stylesheet type='text/xsl' href='_UpgradeReport_Files/UpgradeReport.xslt'?><UpgradeLog>
+<Properties><Property Name="Solution" Value="KnownAsToolMAExtension">
+</Property><Property Name="Solution File" Value="C:\Users\u9x2244-ad\Desktop\KnownAsToolCode\KnownAsToolMAExtension\KnownAsToolMAExtension.sln">
+</Property><Property Name="Date" Value="Monday, April 09, 2012">
+</Property><Property Name="Time" Value="2:12 AM">
+</Property></Properties><Event ErrorLevel="0" Project="" Source="KnownAsToolMAExtension.sln" Description="File successfully backed up as C:\Users\u9x2244-ad\Desktop\KnownAsToolCode\KnownAsToolMAExtension\Backup\KnownAsToolMAExtension.sln">
+</Event><Event ErrorLevel="0" Project="KnownAsToolMAExtension" Source="KnownAsToolMAExtension.csproj" Description="Project file successfully backed up as C:\Users\u9x2244-ad\Desktop\KnownAsToolCode\KnownAsToolMAExtension\Backup\KnownAsToolMAExtension.csproj">
+</Event><Event ErrorLevel="0" Project="KnownAsToolMAExtension" Source="AssemblyInfo.cs" Description="File successfully backed up as C:\Users\u9x2244-ad\Desktop\KnownAsToolCode\KnownAsToolMAExtension\Backup\AssemblyInfo.cs">
+</Event><Event ErrorLevel="0" Project="KnownAsToolMAExtension" Source="KnownAsToolMAExtension.cs" Description="File successfully backed up as C:\Users\u9x2244-ad\Desktop\KnownAsToolCode\KnownAsToolMAExtension\Backup\KnownAsToolMAExtension.cs">
+</Event><Event ErrorLevel="1" Project="KnownAsToolMAExtension" Source="KnownAsToolMAExtension.csproj" Description="Your project is targeting .NET Framework 2.0 or 3.0. If your project uses assemblies requiring a newer .NET Framework, your project will fail to build. You can change the .NET Framework version by clicking Properties on the project menu and then selecting a new version in the '.NET Framework' dropdown box. (In Visual Basic, this is located on the Compile tab by clicking the 'Advanced Compiler Options...' button.)">
+</Event><Event ErrorLevel="0" Project="KnownAsToolMAExtension" Source="KnownAsToolMAExtension.csproj" Description="Project converted successfully">
+</Event><Event ErrorLevel="3" Project="KnownAsToolMAExtension" Source="KnownAsToolMAExtension.csproj" Description="Converted">
+</Event><Event ErrorLevel="0" Project="" Source="KnownAsToolMAExtension.sln" Description="Solution converted successfully">
+</Event><Event ErrorLevel="3" Project="" Source="KnownAsToolMAExtension.sln" Description="Converted">
+</Event><Event ErrorLevel="0" Project="KnownAsToolMAExtension" Source="KnownAsToolMAExtension.csproj" Description="Scan complete: Upgrade not required for project files.">
+</Event></UpgradeLog>

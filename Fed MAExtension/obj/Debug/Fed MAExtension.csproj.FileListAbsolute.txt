@@ -1,0 +1,3 @@
+C:\HR-Code\HR Code - Elanco Release\O365POC\Fed MAExtension\obj\Debug\Fed MAExtension.csprojResolveAssemblyReference.cache
+C:\HR-Code\HR Code - Elanco Release\O365POC\Fed MAExtension\obj\Debug\Fed MAExtension.dll
+C:\HR-Code\HR Code - Elanco Release\O365POC\Fed MAExtension\obj\Debug\Fed MAExtension.pdb

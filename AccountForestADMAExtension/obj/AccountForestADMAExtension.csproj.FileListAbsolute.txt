@@ -1,0 +1,6 @@
+C:\Program Files\Microsoft Identity Integration Server\Extensions\AccountForestADMAExtension.dll
+E:\ILM_POC\MA_Projects\AccountForestADMAExtension\obj\Debug\ResolveAssemblyReference.cache
+E:\ILM_POC\MA_Projects\AccountForestADMAExtension\obj\Debug\AccountForestADMAExtension.dll
+E:\ILM_POC\MA_Projects\AccountForestADMAExtension\obj\Debug\AccountForestADMAExtension.pdb
+E:\ILM_POC\MA_Projects\AccountForestADMAExtension\obj\Release\ResolveAssemblyReference.cache
+E:\ILM_POC\MA_Projects\AccountForestADMAExtension\obj\Release\AccountForestADMAExtension.dll

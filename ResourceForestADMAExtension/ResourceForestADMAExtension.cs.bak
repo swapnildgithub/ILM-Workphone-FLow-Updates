@@ -1,0 +1,982 @@
+using System;
+using System.Xml;
+using Microsoft.MetadirectoryServices;
+using System.Data;
+using System.Collections;
+using System.Diagnostics;
+
+namespace Mms_ManagementAgent_ResourceForestADMAExtension
+{
+    /// <summary>
+    /// Extension for Resource Forest AD MA. It also maps attributes.
+    /// </summary>
+    public class MAExtensionObject : IMASynchronization
+    {
+        XmlNode rnode;
+        XmlNode node;
+        string version, lcsflagoff, etypeNodeValue, publicOu, domain, upn, sipHomeServer, env, strexchangemailprefix, strmsExchmailprovisiontype; //Exchange 
+        Hashtable afvalhash;
+        ArrayList arrproxyadd;
+
+        public MAExtensionObject()
+        {
+            //
+            // TODO: Add constructor logic here
+            //
+        }
+        void IMASynchronization.Initialize()
+        {
+            //
+            // Initialize config details from xml file
+            //
+            try
+            {
+                const string XML_CONFIG_FILE = @"\rules-config.xml";
+                XmlDocument config = new XmlDocument();
+                string dir = Utils.ExtensionsDirectory;
+                config.Load(dir + XML_CONFIG_FILE);
+
+                rnode = config.SelectSingleNode("rules-extension-properties");
+                node = rnode.SelectSingleNode("environment");
+                string env = node.InnerText;
+                rnode = config.SelectSingleNode
+                    ("rules-extension-properties/management-agents/" + env + "/ad-ma");
+                XmlNode confignode = rnode.SelectSingleNode("siteconfigfile");
+                afvalhash = LoadAFConfig(confignode.InnerText);
+                //Provisioning Version
+                node = rnode.SelectSingleNode("version");
+                version = node.InnerText;
+                //get the Users to be set with LCS flag false
+                node = rnode.SelectSingleNode("lcsflagoff");
+                lcsflagoff = node.InnerText.ToUpper();
+                //get the Users to be provisioned from config                       
+                node = rnode.SelectSingleNode("provision");
+                etypeNodeValue = node.InnerText.ToUpper();
+
+                //R5
+                arrproxyadd = LoadPAConfig(dir + XML_CONFIG_FILE);
+
+                rnode = config.SelectSingleNode
+                    ("rules-extension-properties/management-agents/" + env + "/Exchange");
+                node = rnode.SelectSingleNode("exchangemailprefix");
+                strexchangemailprefix = node.InnerText;
+
+            }
+            catch (NullReferenceException nre)
+            {
+                // If a tag does not exist in the xml, then the stopped-extension-dll 
+                // error will be thrown.
+                throw nre;
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+        }
+
+        void IMASynchronization.Terminate()
+        {
+            //
+            // TODO: write termination code
+            //
+        }
+
+        bool IMASynchronization.ShouldProjectToMV(CSEntry csentry, out string MVObjectType)
+        {
+            //
+            // TODO: Remove this throw statement if you implement this method
+            //
+            throw new EntryPointNotImplementedException();
+        }
+
+        DeprovisionAction IMASynchronization.Deprovision(CSEntry csentry)
+        {
+            //
+            // TODO: write Deprovision code
+            //
+            throw new EntryPointNotImplementedException();
+        }
+
+        bool IMASynchronization.FilterForDisconnection(CSEntry csentry)
+        {
+            //
+            // TODO: write connector filter code
+            //
+            throw new EntryPointNotImplementedException();
+        }
+
+        void IMASynchronization.MapAttributesForJoin(string FlowRuleName, CSEntry csentry, ref ValueCollection values)
+        {
+            //
+            // TODO: write join mapping code
+            //
+            throw new EntryPointNotImplementedException();
+        }
+
+        bool IMASynchronization.ResolveJoinSearch(string joinCriteriaName, CSEntry csentry, MVEntry[] rgmventry, out int imventry, ref string MVObjectType)
+        {
+            //
+            // TODO: write join resolution code
+            //
+            throw new EntryPointNotImplementedException();
+        }
+
+        void IMASynchronization.MapAttributesForImport(string FlowRuleName, CSEntry csentry, MVEntry mventry)
+        {
+            //
+            // TODO: write your import attribute flow code
+            //
+            //Release 5 Lilac
+            switch (FlowRuleName)
+            {
+                case "cd.user:whenCreated->mv.person:rfcreate_dt":
+                    string strDatetime = csentry["whenCreated"].Value.ToString();
+                    int year = Convert.ToInt32(strDatetime.Substring(0, 4));
+                    int month = Convert.ToInt32(strDatetime.Substring(4, 2));
+                    int day = Convert.ToInt32(strDatetime.Substring(6, 2));
+                    int hh = Convert.ToInt32(strDatetime.Substring(8, 2));
+                    int mm = Convert.ToInt32(strDatetime.Substring(10, 2));
+                    int dd = Convert.ToInt32(strDatetime.Substring(12, 2));
+                    DateTime dt = new DateTime(year, month, day, hh, mm, dd, 123);
+                    mventry["rfcreate_dt"].Value = dt.ToString("yyyy-MM-dd HH:mm:ss");
+                    break;
+
+                default:
+                    throw new EntryPointNotImplementedException();
+            }
+            //Release 5 Lilac
+
+            //throw new EntryPointNotImplementedException();
+        }
+
+        void IMASynchronization.MapAttributesForExport(string FlowRuleName, MVEntry mventry, CSEntry csentry)
+        {
+            ///
+            /// Export attribute flow 
+            ///
+            int sadconnectors = 0;
+            ConnectedMA sadMA = mventry.ConnectedMAs["Staging Area Database MA"];
+            sadconnectors = sadMA.Connectors.Count;
+
+            switch (FlowRuleName)
+            {
+
+                case "cd.user:msRTCSIP-UserEnabled<-mv.person:atrbt_flg_1,deprovisionedDate,employeeID,employeeType":
+                    //Exception to the Rules extension Philosophy and added rules in RF MA to control the export flow
+                    //Maintain LCS flag flow for "Z" types only
+                    //Not deleted, since msRTCSIP-UserEnabled has to be populated
+                    if (sadconnectors == 0)
+                    {
+                        csentry["msRTCSIP-UserEnabled"].BooleanValue = false;
+                    }
+                    else if (mventry["atrbt_flg_1"].IsPresent)
+                    {
+                        csentry["msRTCSIP-UserEnabled"].BooleanValue = mventry["atrbt_flg_1"].BooleanValue;
+                    }
+                    else if (!mventry["atrbt_flg_1"].IsPresent
+                        && (mventry["employeeType"].IsPresent
+                            && lcsflagoff.Contains(mventry["employeeType"].Value)))
+                    {
+                        csentry["msRTCSIP-UserEnabled"].BooleanValue = false;
+                    }
+                    else
+                    {
+                        csentry["msRTCSIP-UserEnabled"].BooleanValue = true;
+                    }
+                    break;
+
+                case "cd.user:description<-mv.person:deprovisionedDate,employeeID":
+                    //deprovisionedDate,employeeID,employeeStatus is added to trigger the code
+                    //Used SAD connector count logic to enable/disble account
+                    if (sadconnectors == 0
+                        && mventry["deprovisionedDate"].IsPresent)
+                    {
+                        //Convert TerminatedDate to a DateTime object
+                        DateTime TerminatedDate = Convert.ToDateTime(mventry["deprovisionedDate"].Value);
+                        //Set the date in Format                   
+                        string deprovisionedDate = TerminatedDate.ToString("dd-MMM-yyyy").ToUpper();
+                        //Delete the value before setting with new value
+                        csentry["description"].Delete();
+                        csentry["description"].Value = "DDDD " + deprovisionedDate + " OTHR ILM";
+                    }
+                    else
+                    {   //Delete the value to clean
+                        csentry["description"].Delete();
+                    }
+                    break;
+
+                case "cd.user:msExchHideFromAddressLists<-mv.person:deprovisionedDate,employeeID,sAMAccountName":
+                    if (sadconnectors == 0
+                        && mventry["deprovisionedDate"].IsPresent)
+                    {
+                        csentry["msExchHideFromAddressLists"].BooleanValue = true;
+                    }
+                    break;
+
+                
+                
+                case "cd.user:proxyAddresses<-mv.person:employeeID,employeeType,mail,msExchmailprovisionCode,msRTCSIP-PrimaryUserAddress,otherMailbox,proxyAddresses,sAMAccountName":
+                    
+                    if (mventry["msExchmailprovisionCode"].IsPresent)
+                    {
+                        switch ((mventry["msExchmailprovisionCode"].Value))
+                        {
+                            case "Standard":
+                                {
+                                    //Set up proxy by emptying the multivalued attribute and re-populating it
+                                    //Delete is accomplished through .Clear() if values are empty
+                                    //PRSNL_NBR is added to trigger the code in case the original attribute value is null
+                                    // Clear the sip: entry - Create an empty string value collection
+                                    ValueCollection finalValues = Utils.ValueCollection("initialValue");
+                                    finalValues.Clear();
+
+                                    foreach (Value addrElement in mventry["proxyAddresses"].Values)
+                                    {
+                                        if (!addrElement.ToString().ToLower().StartsWith("sip:"))
+                                        {
+                                            finalValues.Add(addrElement);
+                                        }
+                                    }
+
+                                    csentry["proxyAddresses"].Values = finalValues;
+                                    finalValues.Clear();
+                                    //"Z" is hardcoded since this a pointed requirement
+                                    //For exchange the code below is modified
+                                    //Proxyaddress for SIP should be build based of msRTCSIP-PrimaryUserAddress
+                                    //Employeetype check will be removed from here and enforced in the code for creation of msRTCSIP-PrimaryUserAddress
+                                    /*
+                                    if (mventry["employeeType"].IsPresent
+                                        && mventry["employeeType"].Value.ToUpper().Equals("Z"))
+                                    {
+                                        //Create SIP for Collaborators
+                                        if (mventry["sAMAccountName"].IsPresent)//this check has been added in R4 to avoid DLL error on console
+                                            //mventry["proxyAddresses"].Value = @"sip:" + csentry["SYSTEM_ID"].Value + "@LILLY.COM"; //exchnage modified
+                                            csentry["proxyAddresses"].Values.Add(@"sip:" + mventry["sAMAccountName"].Value + "@LILLY.COM");
+                                    }
+                                    else if (mventry["mail"].IsPresent
+                                        && mventry["mail"].Value.ToLower().Contains("@lilly.com"))
+                                    {
+                                        //Create SIP for Collaborators or Lilly users with only Lilly email address
+                                        //mventry["proxyAddresses"].Value = @"sip:" + csentry["INTERNET_STYLE_ADRS"].Value;
+                                        csentry["proxyAddresses"].Values.Add(@"sip:" + mventry["mail"].Value);
+                                    }
+                                     */
+
+                                    if (mventry["msRTCSIP-PrimaryUserAddress"].IsPresent &&
+                                        mventry["msRTCSIP-PrimaryUserAddress"].Value.ToString().ToLower().Contains("sip:"))
+                                    {
+                                        csentry["proxyAddresses"].Values.Add(mventry["msRTCSIP-PrimaryUserAddress"].Value);
+                                    }
+
+                                    string tempsmtpSystemId, tempsmtpMailId, tempsmtpOthermailbox, tempsmtpexchangeSystemID;
+                                    tempsmtpSystemId = tempsmtpMailId = tempsmtpOthermailbox = tempsmtpexchangeSystemID = null;
+                                    if (mventry["sAMAccountName"].IsPresent)
+                                    {
+                                        tempsmtpSystemId = "smtp:" + mventry["sAMAccountName"].Value + "@" + strexchangemailprefix;
+                                        tempsmtpSystemId = tempsmtpSystemId.ToLower();
+                                        tempsmtpexchangeSystemID = "smtp:" + mventry["sAMAccountName"].Value + "@" + "exchange." + strexchangemailprefix;
+                                        tempsmtpexchangeSystemID = tempsmtpexchangeSystemID.ToLower();
+                                    }
+
+                                    if (mventry["mail"].IsPresent)
+                                    {
+                                        tempsmtpMailId = "smtp:" + mventry["mail"].Value;
+                                        tempsmtpMailId = tempsmtpMailId.ToLower();
+                                    }
+
+                                    if (mventry["otherMailbox"].IsPresent)
+                                    {
+                                        tempsmtpOthermailbox = "smtp:" + mventry["otherMailbox"].Value;
+                                        tempsmtpOthermailbox = tempsmtpOthermailbox.ToLower();
+                                    }
+
+                                    foreach (Value addrElement in mventry["proxyAddresses"].Values)
+                                    {
+                                        if (!(tempsmtpSystemId == null))
+                                        {
+                                            if (!(addrElement.ToString().ToLower().Contains(tempsmtpSystemId)))
+                                            {
+                                                finalValues.Add(tempsmtpSystemId);
+                                            }
+                                        }
+                                        if (!(tempsmtpMailId == null))
+                                        {
+                                            if (!(addrElement.ToString().ToLower().Contains(tempsmtpMailId)))
+                                            {
+                                                finalValues.Add(tempsmtpMailId);
+                                            }
+                                        }
+                                        /*   if (!(tempsmtpOthermailbox == null))
+                                           {
+                                               if (!(addrElement.ToString().ToLower().Contains(tempsmtpOthermailbox)))
+                                               {
+                                                   finalValues.Add(tempsmtpOthermailbox);
+                                               }
+
+                                           }*/
+                                        if (!(tempsmtpexchangeSystemID == null))
+                                        {
+                                            if (!(addrElement.ToString().ToLower().Contains(tempsmtpexchangeSystemID)))
+                                            {
+                                                finalValues.Add(tempsmtpexchangeSystemID);
+                                            }
+
+                                        }
+                                    }
+
+                                    csentry["proxyAddresses"].Values.Add(finalValues);
+                                }
+                                break;
+                            case "No Mailbox":
+                                {
+                                    csentry["proxyAddresses"].Delete();
+                                }
+                                break;
+
+                            case "Mail Contact Only":
+                                {
+                                    if (mventry["sAMAccountName"].IsPresent)
+                                    {
+                                        //Exisiting Proxyaddress not cleared. Please verify if that is a requirement
+                                        csentry["proxyAddresses"].Values.Add("smtp:" + mventry["sAMAccountName"].Value + "@" + strexchangemailprefix);
+                                        csentry["proxyAddresses"].Values.Add("smtp:" + mventry["sAMAccountName"].Value + "@" + "exchange." + strexchangemailprefix);
+                                    }
+
+                                }
+                                break;
+                            case "Mail Contact with SIP":
+                                {
+                                    if (mventry["sAMAccountName"].IsPresent)
+                                    {
+                                        //Exisiting Proxyaddress not cleared. Please verify if that is a requirement
+                                        csentry["proxyAddresses"].Values.Add("smtp:" + mventry["sAMAccountName"].Value + "@" + strexchangemailprefix);
+                                        csentry["proxyAddresses"].Values.Add("smtp:" + mventry["sAMAccountName"].Value + "@" + "exchange." + strexchangemailprefix);
+                                    }
+                                }
+                                break;
+                            case "Mail and SIP Contact":
+                                {
+                                    if (mventry["sAMAccountName"].IsPresent)
+                                    {
+                                        //Exisiting Proxyaddress not cleared. Please verify if that is a requirement
+                                        csentry["proxyAddresses"].Values.Add("smtp:" + mventry["sAMAccountName"].Value + "@" + strexchangemailprefix);
+                                        csentry["proxyAddresses"].Values.Add("smtp:" + mventry["sAMAccountName"].Value + "@" + "exchange." + strexchangemailprefix);
+                                    }
+                                }
+                                break;
+                            default:
+                                {
+                                    csentry["proxyAddresses"].Delete();
+                                }
+                                break;
+                        }
+                    }
+
+                    else
+                    {
+                        csentry["proxyAddresses"].Delete();
+                    }
+                   
+                    break;
+
+                //Exchange Release - Initial - mailnickname
+                //case "cd.user:mailNickname<-mv.person:employeeID,employeeType,mail,otherMailbox,sAMAccountName":
+                case "cd.user:mailNickname<-mv.person:employeeID,employeeType,mail,msExchmailprovisionCode,otherMailbox,sAMAccountName":
+
+                    if (mventry["msExchmailprovisionCode"].IsPresent)
+                    {
+                        switch ((mventry["msExchmailprovisionCode"].Value))
+                        {
+                            case "Standard":
+                                {
+                                    if ((mventry["otherMailbox"].IsPresent) && mventry["otherMailbox"].Value.ToUpper().ToString().Contains("@LILLY.COM"))
+                                    {
+                                        string tempSTR = null;
+                                        string[] tempSTRARR = null;
+                                        tempSTR = mventry["otherMailbox"].Value.ToString();
+                                        tempSTRARR = tempSTR.Split('@');
+                                        if (tempSTRARR.Length != 0)
+                                            csentry["mailNickname"].Value = tempSTRARR[0].ToString();
+                                        if (csentry["mailNickname"].IsPresent)
+                                            break;
+                                    }
+                                    if ((mventry["mail"].IsPresent) && mventry["mail"].Value.ToUpper().ToString().Contains("@LILLY.COM"))
+                                    {
+                                        string tempSTR = null;
+                                        string[] tempSTRARR = null;
+                                        tempSTR = mventry["mail"].Value.ToString();
+                                        string[] stringSeparators1 = new string[] { "@", "_NONLILLY" };
+                                        tempSTRARR = tempSTR.Split(stringSeparators1, StringSplitOptions.None);
+                                        if (tempSTRARR.Length != 0)
+                                            csentry["mailNickname"].Value = tempSTRARR[0].ToString();
+
+                                        if (csentry["mailNickname"].IsPresent)
+                                            break;
+
+                                    }
+                                    if (mventry["sAMAccountName"].IsPresent)
+                                    {
+                                        csentry["mailNickname"].Value = mventry["sAMAccountName"].Value;
+                                        break;
+                                    }
+                                       
+                                }
+                                break;
+                            case "No Mailbox":
+                                {
+                                    csentry["mailNickname"].Delete();
+                                }
+                                break;
+                            
+                            case "Mail Contact Only":
+                                {
+                                    csentry["mailNickname"].Value = mventry["samaccountname"].Value;
+                                }
+                                break;
+                            case "Mail Contact with SIP":
+                                {
+                                    csentry["mailNickname"].Value = mventry["samaccountname"].Value;
+                                }
+                                break;
+                            case "Mail and SIP Contact":
+                                {
+                                    csentry["mailNickname"].Value = mventry["samaccountname"].Value;
+                                }
+                                break;
+                            default: 
+                                {
+                                    csentry["mailNickname"].Delete();
+                                }
+                                break;
+                              
+                        }
+                    }
+                    else
+                    {
+                        csentry["mailNickname"].Delete();
+                    }
+                    break;
+                    //exchange
+
+               //case "cd.user:extensionAttribute10<-mv.person:mailNickname,sAMAccountName":
+               case "cd.user:extensionAttribute10<-mv.person:mailNickname,msExchmailprovisionCode,sAMAccountName":
+                   
+                   if (mventry["msExchmailprovisionCode"].IsPresent)
+                   {
+                       switch ((mventry["msExchmailprovisionCode"].Value))
+                       {
+                           case "Standard":
+                           {
+                               if (mventry["mailNickname"].IsPresent)
+                               {
+                                   if (mventry["sAMAccountName"].IsPresent)
+                                   {
+                                       if (mventry["sAMAccountName"].Value.ToUpper().ToString().Equals(mventry["mailNickname"].Value.ToUpper().ToString()))
+                                       {
+                                           csentry["extensionAttribute10"].Value = "SYSTEMID";
+                                       }
+                                       else
+                                       {
+                                           csentry["extensionAttribute10"].Delete();
+                                       }
+                                   }
+                               }
+                           }
+                           break;
+
+                           case "No Mailbox":
+                               {
+                                   csentry["extensionAttribute10"].Delete();
+                               }
+                               break;
+
+                           case "Mail Contact Only":
+                               {
+                                   csentry["extensionAttribute10"].Value = "CONTACT";
+                               }
+                               break;
+                           case "Mail Contact with SIP":
+                               {
+                                   csentry["extensionAttribute10"].Value = "CONTACT"; 
+                               }
+                               break;
+                           case "Mail and SIP Contact":
+                               {
+                                   csentry["extensionAttribute10"].Value = "CONTACT";
+                               }
+                               break;
+                           default:
+                               {
+                                   csentry["extensionAttribute10"].Delete();
+                               }
+                               break;
+                        }
+
+                   }
+                   else
+                   {
+                       csentry["extensionAttribute10"].Delete();
+                   }
+
+                    break;
+            
+                case "cd.user:msExchRequireAuthToSendTo<-mv.person:deprovisionedDate,employeeID,sAMAccountName":
+                    {
+                        if (sadconnectors == 0
+                        && mventry["deprovisionedDate"].IsPresent)
+                        {
+                            csentry["msExchRequireAuthToSendTo"].BooleanValue = true;
+                        }
+                        else
+                        {
+                            csentry["msExchRequireAuthToSendTo"].BooleanValue = false;
+                        }
+
+                    }
+                    break;
+
+                case "cd.user:msExchUserAccountControl<-mv.person:employeeID,msExchmailprovisionCode,sAMAccountName":
+                    {
+                        if (mventry["msExchmailprovisionCode"].IsPresent)
+                        {
+                            ConnectedMA afadMA;
+                            int connectors;
+                            afadMA = mventry.ConnectedMAs["Account Forest AD MA"];
+                            connectors = afadMA.Connectors.Count;
+
+                            switch ((mventry["msExchmailprovisionCode"].Value))
+                            {
+                                case "Standard":
+                                    {
+                                        csentry["msExchUserAccountControl"].IntegerValue = 2;
+                                    }
+                                    break;
+                                case "No Mailbox":
+                                    {
+                                        csentry["msExchUserAccountControl"].Delete();
+                                    }
+                                    break;
+
+                                case "Mail Contact Only":
+                                    {
+                                        if (connectors == 1)//Check with John what should be done for Connectors more than 2
+                                        {
+                                            csentry["msExchUserAccountControl"].IntegerValue = 2;
+                                        }
+                                        else
+                                        {
+                                            csentry["msExchUserAccountControl"].Delete();
+                                        }
+                                    }
+                                    break;
+                                case "Mail Contact with SIP":
+                                    {
+                                        if (connectors == 1)//Check with John what should be done for Connectors more than 2
+                                        {
+                                            csentry["msExchUserAccountControl"].IntegerValue = 2;
+                                        }
+                                        else
+                                        {
+                                            csentry["msExchUserAccountControl"].Delete();
+                                        }
+                                    }
+                                    break;
+                                case "Mail and SIP Contact":
+                                    {
+                                        if (connectors == 1)//Check with John what should be done for Connectors more than 2
+                                        {
+                                            csentry["msExchUserAccountControl"].IntegerValue = 2;
+                                        }
+                                        else
+                                        {
+                                            csentry["msExchUserAccountControl"].Delete();
+                                        }
+                                    }
+                                    break;
+
+                            }
+                        }
+                        else
+                        {
+                            csentry["msExchUserAccountControl"].Delete();
+                        }
+                    }
+                    break;
+
+                case "cd.user:msExchRecipientTypeDetails<-mv.person:employeeID,msExchmailprovisionCode,sAMAccountName":
+                    {
+                        if (mventry["msExchmailprovisionCode"].IsPresent)
+                        {
+
+                            switch ((mventry["msExchmailprovisionCode"].Value))
+                            {
+                                case "Standard":
+                                    {
+                                        csentry["msExchRecipientTypeDetails"].IntegerValue = 2;
+                                    }
+                                    break;
+                                case "No Mailbox":
+                                    {
+                                        csentry["msExchRecipientTypeDetails"].Delete();
+                                    }
+                                    break;
+
+                                case "Mail Contact Only":
+                                    {
+                                        csentry["msExchRecipientTypeDetails"].IntegerValue = 128;
+                                    }
+                                    break;
+                                case "Mail Contact with SIP":
+                                    {
+                                        csentry["msExchRecipientTypeDetails"].IntegerValue = 128;
+                                    }
+                                    break;
+                                case "Mail and SIP Contact":
+                                    {
+                                        csentry["msExchRecipientTypeDetails"].IntegerValue = 128;
+                                    }
+                                    break;
+
+                            }
+                        }
+                        else
+                        {
+                            csentry["msExchRecipientTypeDetails"].Delete();
+                        }
+                    }
+                    break;
+                
+                case "cd.user:msExchMasterAccountSid<-mv.person:employeeID,msExchmailprovisionCode,objectSid,sAMAccountName":
+                    {
+                        if (mventry["msExchmailprovisionCode"].IsPresent)
+                        {
+
+                            switch ((mventry["msExchmailprovisionCode"].Value))
+                            {
+                                case "Standard":
+                                    {
+                                        if (mventry["objectSid"].IsPresent)
+                                        {
+                                            csentry["msExchMasterAccountSid"].Value = mventry["objectSid"].Value;
+                                        }
+                                    }
+                                    break;
+                                case "No Mailbox":
+                                    {
+                                        csentry["msExchMasterAccountSid"].Delete();
+                                    }
+                                    break;
+
+                                case "Mail Contact Only":
+                                    {
+                                        if (mventry["objectSid"].IsPresent)
+                                        {
+                                            csentry["msExchMasterAccountSid"].Value = mventry["objectSid"].Value;
+                                        }
+                                    }
+                                    break;
+                                case "Mail Contact with SIP":
+                                    {
+                                        if (mventry["objectSid"].IsPresent)
+                                        {
+                                            csentry["msExchMasterAccountSid"].Value = mventry["objectSid"].Value;
+                                        }
+                                    }
+                                    break;
+                                case "Mail and SIP Contact":
+                                    {
+                                        if (mventry["objectSid"].IsPresent)
+                                        {
+                                            csentry["msExchMasterAccountSid"].Value = mventry["objectSid"].Value;
+                                        }
+                                    }
+                                    break;
+
+                            }
+                        }
+                        else
+                        {
+                            csentry["msExchMasterAccountSid"].Delete();
+                        }
+                    }
+                    break;
+
+                case "cd.user:authOrig<-mv.person:deprovisionedDate,employeeID,sAMAccountName":
+	               {
+                        if (sadconnectors == 0
+                        && mventry["deprovisionedDate"].IsPresent)
+                        {
+			                string DNname = csentry.DN.ToString();
+                            csentry["authOrig"].Value = DNname;
+                        }
+                        else
+                        {
+                            csentry["authOrig"].Delete();
+                        }
+
+                    }
+                    break;
+
+                //case "cd.user:msExchHomeServerName<-mv.person:employeeID,msExchMailboxGuid,sAMAccountName":
+                case "cd.user:msExchHomeServerName<-mv.person:employeeID,msExchMailboxGuid,msExchmailprovisionCode,sAMAccountName":
+                    {
+
+                        if (mventry["msExchmailprovisionCode"].IsPresent)
+                        {
+
+                            switch ((mventry["msExchmailprovisionCode"].Value))
+                            {
+                                case "Standard":
+                                    {
+                                        if (!(csentry["msExchMailboxGuid"].IsPresent))
+                                        {
+                                            csentry["msExchHomeServerName"].Value = "/o=icepoc/ou=Exchange Administrative Group (FYDIBOHF23SPDLT)/cn=Configuration/cn=Servers/cn=DEV0-IUC03";
+                                        }
+                                    }
+
+                                    break;
+                                case "No Mailbox":
+                                    {
+                                        //csentry["msExchMasterAccountSid"].Delete();
+                                    }
+                                    break;
+
+                                case "Mail Contact Only":
+                                    {
+
+                                    }
+                                    break;
+                                case "Mail Contact with SIP":
+                                    {
+
+                                    }
+                                    break;
+                                case "Mail and SIP Contact":
+                                    {
+
+                                    }
+                                    break;
+                            }
+                        }
+                    }
+                    break;
+
+                case "cd.user:homeMDB<-mv.person:employeeID,msExchMailboxGuid,msExchmailprovisionCode,sAMAccountName":
+                    {
+
+                        if (mventry["msExchmailprovisionCode"].IsPresent)
+                        {
+
+                            switch ((mventry["msExchmailprovisionCode"].Value))
+                            {
+                                case "Standard":
+                                    {
+                                        if (!(csentry["msExchMailboxGuid"].IsPresent))
+                                        {
+                                            csentry["homeMDB"].Value = "CN=Mailbox Database 0950448715,CN=Databases,CN=Exchange Administrative Group (FYDIBOHF23SPDLT),CN=Administrative Groups,CN=icepoc,CN=Microsoft Exchange,CN=Services,CN=Configuration,DC=RFX,DC=ICEPOC,DC=COM";
+                                        }
+                                    }
+
+                                    break;
+                                case "No Mailbox":
+                                    {
+                                        //csentry["msExchMasterAccountSid"].Delete();
+                                    }
+                                    break;
+
+                                case "Mail Contact Only":
+                                    {
+
+                                    }
+                                    break;
+                                case "Mail Contact with SIP":
+                                    {
+
+                                    }
+                                    break;
+                                case "Mail and SIP Contact":
+                                    {
+
+                                    }
+                                    break;
+                            }
+                        }
+                    }
+                    break; 
+
+                default:
+                    throw new EntryPointNotImplementedException();
+            }
+        }
+
+        public Hashtable LoadAFConfig(string filename)
+        {
+            //
+            // Initializing AD config file, any new PArent Tag in the config means code change / addition to this section 
+            //
+
+            XmlTextReader xmlReader = new XmlTextReader("C:\\Program Files\\Microsoft Identity Integration Server\\Extensions\\" + filename);
+            // Read the line of the xml file
+            Hashtable primaryhash = new Hashtable();
+
+            while (xmlReader.ReadToFollowing("PARENT"))
+            {
+                Hashtable valhash = new Hashtable();
+                if (xmlReader.HasAttributes)
+                {
+                    for (int i = 0; i < xmlReader.AttributeCount; i++)
+                    {
+                        xmlReader.MoveToAttribute(i);
+                        primaryhash.Add(xmlReader.Value, valhash);
+                    }
+                }
+                if (xmlReader.ReadToFollowing("PATH"))
+                {
+                    xmlReader.Read();
+                    string path = xmlReader.Value;
+                    valhash.Add("PATH", path);
+                }
+
+                if (xmlReader.ReadToFollowing("UPN"))
+                {
+                    xmlReader.Read();
+                    string upn = xmlReader.Value;
+                    valhash.Add("UPN", upn);
+                }
+                if (xmlReader.ReadToFollowing("DOMAIN"))
+                {
+                    xmlReader.Read();
+                    string domain = xmlReader.Value;
+                    valhash.Add("DOMAIN", domain);
+                }
+                if (xmlReader.ReadToFollowing("SIPHOMESERVER"))
+                {
+                    xmlReader.Read();
+                    string domain = xmlReader.Value;
+                    valhash.Add("SIPHOMESERVER", domain);
+                }
+                /*if (xmlReader.ReadToFollowing("msExchmailprovisiontype"))
+                {
+                    xmlReader.Read();
+                    string strmsExchmailprovisiontype = xmlReader.Value;
+                    valhash.Add("msExchmailprovisiontype", strmsExchmailprovisiontype);
+                }*/
+
+                if (xmlReader.ReadToFollowing("PERSONNELAREA"))
+                {
+                    ArrayList parray = new ArrayList();
+                    XmlReader tempxmlReader = (XmlReader)xmlReader.ReadSubtree();
+                    while (tempxmlReader.ReadToFollowing("CODE"))
+                    {
+                        tempxmlReader.Read();
+                        string pcode = tempxmlReader.Value;
+                        parray.Add(pcode);
+                    }
+                    valhash.Add("PERSONNELAREA", parray);
+                }
+
+                if (xmlReader.ReadToFollowing("CONSTITUENT"))
+                {
+                    ArrayList etypearray = new ArrayList();
+                    XmlReader tempxmlReader = (XmlReader)xmlReader.ReadSubtree();
+                    while (tempxmlReader.ReadToFollowing("EMPLY_GRP"))
+                    {
+                        tempxmlReader.Read();
+                        string etype = tempxmlReader.Value;
+                        etypearray.Add(etype.ToUpper());
+                    }
+                    valhash.Add("CONSTITUENT", etypearray);
+                }
+
+                string strNameExchHomeServer = "";
+                string[,] strArrRandomized = new string[50, 2];
+                int j = 0;
+                if (xmlReader.ReadToFollowing("REGION"))
+                {
+                    XmlReader exchxmlReader = (XmlReader)xmlReader.ReadSubtree();
+                    while (exchxmlReader.ReadToFollowing("ExchHomeServer"))
+                    {
+                        if (exchxmlReader.AttributeCount > 0)
+                        {
+                            strNameExchHomeServer = exchxmlReader.GetAttribute("name");
+                        }
+                        XmlReader mdbxmlReader = (XmlReader)xmlReader.ReadSubtree();
+                        while (mdbxmlReader.ReadToFollowing("homeMDB"))
+                        {
+                            mdbxmlReader.Read();
+                            strArrRandomized[j, 0] = (strNameExchHomeServer);
+                            strArrRandomized[j, 1] = (mdbxmlReader.Value);
+                            j = j + 1;
+                        }
+                    }
+                    valhash.Add("RANDOMIZEDARRAY", strArrRandomized);
+                }
+            }
+            return primaryhash;
+        }
+
+        public void setUserVariables(string paccode, string employeeType)
+        {
+            //
+            // Initializing the variable necessary to build a AD account from the already initialized AD config file in a Hashtable
+            //
+
+            foreach (DictionaryEntry de in afvalhash)
+            {
+                Hashtable afconfig = (Hashtable)de.Value;
+                ArrayList listarea = (ArrayList)afconfig["PERSONNELAREA"];
+                ArrayList listtype = (ArrayList)afconfig["CONSTITUENT"];
+                publicOu = null;
+                domain = null;
+                upn = null;
+                sipHomeServer = null;
+
+                if (listarea.Contains(paccode) && listtype.Contains(employeeType.ToUpper()))
+                {
+                    publicOu = afconfig["PATH"].ToString();
+                    domain = afconfig["DOMAIN"].ToString().ToUpper();
+                    upn = afconfig["UPN"].ToString();
+                    sipHomeServer = afconfig["SIPHOMESERVER"].ToString();
+                    string[] strArrServerValues = getRandomizedValues((string[,])afconfig["RANDOMIZEDARRAY"]); 
+                    //strmsExchmailprovisiontype = afconfig["msExchmailprovisiontype"].ToString();
+                    
+                    break;
+                }
+            }
+        }
+
+        public string[] getRandomizedValues(string[,] strArrInput)
+        {
+            Random intRandomNumber = new Random();
+            string[] strArrOut = new string[2];
+            int intRandom = 0;
+            do
+            {
+                intRandom = Convert.ToInt16(intRandomNumber.Next(0, 50));
+                strArrOut[0] = strArrInput[intRandom, 0];
+                strArrOut[1] = strArrInput[intRandom, 1];
+            } while (!((intRandom < strArrInput.GetLength(0)) & (strArrInput[intRandom, 0] != null)));
+            return strArrOut;
+        }
+
+
+        public ArrayList LoadPAConfig(string XML_CONFIG_FILE)
+        {
+            ArrayList arrList = new ArrayList();
+            XmlTextReader xmlReader = new XmlTextReader(XML_CONFIG_FILE);
+
+            if (xmlReader.ReadToFollowing("proxyaddresses"))
+            {
+                XmlReader tempxmlReader = (XmlReader)xmlReader.ReadSubtree();
+                while (tempxmlReader.ReadToFollowing("value"))
+                {
+                    tempxmlReader.Read();
+                    string paddess = tempxmlReader.Value;
+                    arrList.Add(paddess);
+                }
+            }
+            return arrList;
+        }
+    }
+}
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            
