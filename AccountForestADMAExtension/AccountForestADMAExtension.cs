@@ -179,35 +179,62 @@ namespace Mms_ManagementAgent_AccountForestADMAExtension
             //
             switch (FlowRuleName)
             {
-                case "cd.user:sAMAccountName->mv.PrivilegedAccount:ms-DS-ConsistencyGuidPrivAcct":
-                    //CHG1581173 - generate new GUID to set in Consistency Guid for cloud and Privileged accounts.
-                    // if (!mventry["ms-DS-ConsistencyGuidPrivAcct"].IsPresent && csentry["sAMAccountName"].Value.ToLower().EndsWith("-ca"))
-                    if (!mventry["ms-DS-ConsistencyGuidPrivAcct"].IsPresent && (csentry["sAMAccountName"].Value.ToLower().EndsWith("-ca") || csentry["sAMAccountName"].Value.ToLower().EndsWith("-ds")))
-                        mventry["ms-DS-ConsistencyGuidPrivAcct"].BinaryValue = Guid.NewGuid().ToByteArray();
-                    break;
 
+                //27-May-2022 - CHG1891516 - PPA and Service Accounts Flows retirement from MIM
+                /*
+                Code Removed  for - case "cd.user:sAMAccountName->mv.PrivilegedAccount:ms-DS-ConsistencyGuidPrivAcct":
+       
+                   */
+                /*
+             case "cd.user:sAMAccountName->mv.PrivilegedAccount:ms-DS-ConsistencyGuidPrivAcct":
+                 //CHG1581173 - generate new GUID to set in Consistency Guid for cloud and Privileged accounts.
+                 // if (!mventry["ms-DS-ConsistencyGuidPrivAcct"].IsPresent && csentry["sAMAccountName"].Value.ToLower().EndsWith("-ca"))
+                 if (!mventry["ms-DS-ConsistencyGuidPrivAcct"].IsPresent && (csentry["sAMAccountName"].Value.ToLower().EndsWith("-ca") || csentry["sAMAccountName"].Value.ToLower().EndsWith("-ds")))
+                     mventry["ms-DS-ConsistencyGuidPrivAcct"].BinaryValue = Guid.NewGuid().ToByteArray();
+                 break;
+                 */
+
+                //27-May-2022 - CHG1891516 - PPA and Service Accounts Flows retirement from MIM
+                /*
+                Code Removed  for - case "cd.user:sAMAccountName->mv.PrivilegedAccount:initpwdPrivlgdAcct":
+       
+                   */
+
+                /*
                 //CHG1471559 - Initial Password Update Modifying initial password char limits for new AD password Policies
                 case "cd.user:sAMAccountName->mv.PrivilegedAccount:initpwdPrivlgdAcct":
                     if (!mventry["initpwdPrivlgdAcct"].IsPresent)
                         mventry["initpwdPrivlgdAcct"].Value = RandomPassword.Generate(MinInitPwdLength, MaxInitPwdLength);
                     break;
+                    */
 
-                // CHG1471559 - Initial Password UpdateModifying initial password char limits for new AD password Policies
-                case "cd.user:<dn>,sAMAccountName->mv.ServiceAccounts:initpwdCloudServiceAcct":
-                    if (!mventry["initpwdCloudServiceAcct"].IsPresent && csentry.DN.ToString().ToLower().Contains("ou=cloud"))
-                        mventry["initpwdCloudServiceAcct"].Value = RandomPassword.Generate(MinInitPwdLength, MaxInitPwdLength);
-                    break;
+                //27-May-2022 - CHG1891516 - PPA and Service Accounts Flows retirement from MIM
+                /*
+                Code Removed  for - case "cd.user:<dn>,sAMAccountName->mv.ServiceAccounts:initpwdCloudServiceAcct":
 
+                   */
+                /*
+            // CHG1471559 - Initial Password UpdateModifying initial password char limits for new AD password Policies
+            case "cd.user:<dn>,sAMAccountName->mv.ServiceAccounts:initpwdCloudServiceAcct":
+                if (!mventry["initpwdCloudServiceAcct"].IsPresent && csentry.DN.ToString().ToLower().Contains("ou=cloud"))
+                    mventry["initpwdCloudServiceAcct"].Value = RandomPassword.Generate(MinInitPwdLength, MaxInitPwdLength);
+                break;
+                */
 
+                //27-May-2022 - CHG1891516 - PPA and Service Accounts Flows retirement from MIM
+                /*
+                Code Removed  for - "cd.user:<dn>,sAMAccountName->mv.ServiceAccounts:ms-DS-ConsistencyGuidServiceAcct":
+                   */
+                /*
                 case "cd.user:<dn>,sAMAccountName->mv.ServiceAccounts:ms-DS-ConsistencyGuidServiceAcct":
                     //generate new GUID to set in Consistency Guid for cloud
                     if (!mventry["ms-DS-ConsistencyGuidServiceAcct"].IsPresent && csentry.DN.ToString().ToLower().Contains("ou=cloud"))
                         mventry["ms-DS-ConsistencyGuidServiceAcct"].BinaryValue = Guid.NewGuid().ToByteArray();
 
-                    break;
+                break;
+                 */
 
-                
-               case "cd.user:<dn>,userAccountControl->mv.person:userAccountControl":
+                case "cd.user:<dn>,userAccountControl->mv.person:userAccountControl":
 
                     if (csentry["userAccountControl"].IsPresent)
                     {
@@ -373,7 +400,8 @@ namespace Mms_ManagementAgent_AccountForestADMAExtension
                 //The day User account is deprovisioned, set the pwdLastSet to 0
                 if (sadconnectors == 0 && mventry["deprovisionedDate"].IsPresent)
                 {
-                    csentry["pwdLastSet"].IntegerValue = 0;
+					//CHG1838929 - Commented to Not set this value to 0 and allow Pwd sync in AAD
+                    //csentry["pwdLastSet"].IntegerValue = 0;
                 }
 
                 break;
@@ -510,27 +538,32 @@ namespace Mms_ManagementAgent_AccountForestADMAExtension
                     break;
                 //25-June-2021 - CHG1764452 - Workday phone number Flow Update to remove TNMS number precedence and create direct flow from SAD to RF
                 /*
-                case "cd.user:telephoneNumber<-mv.person:Full_Work_Phone_Nbr,human_readable,sAMAccountName":
-
-                    if (mventry["human_readable"].IsPresent)
-                        csentry["telephoneNumber"].Value = mventry["human_readable"].Value.ToString();
-                    else if (mventry["Full_Work_Phone_Nbr"].IsPresent)
-                        csentry["telephoneNumber"].Value = mventry["Full_Work_Phone_Nbr"].Value.ToString();
-                    else
-                        csentry["telephoneNumber"].Delete();
-                    break;
+                Code Removed  for - case "cd.user:telephoneNumber<-mv.person:Full_Work_Phone_Nbr,human_readable,sAMAccountName":
+       
                    */
 
-                case "cd.user:userPrincipalName<-mv.ServiceAccounts:initpwdCloudServiceAcct,uid":
-                    if (!(mventry["initpwdCloudServiceAcct"].IsPresent) && mventry["uid"].IsPresent)
-                        csentry["userPrincipalName"].Value = mventry["uid"].Value.ToString() + "@" + strZone1Domain.ToLower();
-                    break;
-
-                case"cd.user:displayName<-mv.ServiceAccounts:initpwdCloudServiceAcct,serviceAccountName":
-                    if (!(mventry["initpwdCloudServiceAcct"].IsPresent) && mventry["serviceAccountName"].IsPresent)
-                        csentry["displayName"].Value = mventry["serviceAccountName"].Value.ToString();
-                    break;
-
+                //27-May-2022 - CHG1891516 - PPA and Service Accounts Flows retirement from MIM
+                /*
+                Code Removed  for - case "cd.user:userPrincipalName<-mv.ServiceAccounts:initpwdCloudServiceAcct,uid":
+       
+                   */
+                /*   
+               case "cd.user:userPrincipalName<-mv.ServiceAccounts:initpwdCloudServiceAcct,uid":
+                   if (!(mventry["initpwdCloudServiceAcct"].IsPresent) && mventry["uid"].IsPresent)
+                       csentry["userPrincipalName"].Value = mventry["uid"].Value.ToString() + "@" + strZone1Domain.ToLower();
+                   break;
+                   */
+                //27-May-2022 - CHG1891516 - PPA and Service Accounts Flows retirement from MIM
+                /*
+                Code Removed  for - case "cd.user:displayName<-mv.ServiceAccounts:initpwdCloudServiceAcct,serviceAccountName":
+       
+                   */
+                /*
+             case "cd.user:displayName<-mv.ServiceAccounts:initpwdCloudServiceAcct,serviceAccountName":
+                 if (!(mventry["initpwdCloudServiceAcct"].IsPresent) && mventry["serviceAccountName"].IsPresent)
+                     csentry["displayName"].Value = mventry["serviceAccountName"].Value.ToString();
+                 break;
+                 */
                 default:
                     throw new EntryPointNotImplementedException();
             }

@@ -18,3 +18,9 @@ C:\CODE\HR-Code\MIM_Linux Improvement Release July 2020\MIM Code - Linux Improve
 C:\CODE\HR-Code\WorkPhone Flow Updates - May 2021\MIM Code - (Base code - Linux Release)\O365 Solution\AccountForestADMAExtension\obj\Debug\AccountForestADMAExtension.csprojResolveAssemblyReference.cache
 C:\CODE\HR-Code\WorkPhone Flow Updates - May 2021\MIM Code - (Base code - Linux Release)\O365 Solution\AccountForestADMAExtension\obj\Debug\AccountForestADMAExtension.dll
 C:\CODE\HR-Code\WorkPhone Flow Updates - May 2021\MIM Code - (Base code - Linux Release)\O365 Solution\AccountForestADMAExtension\obj\Debug\AccountForestADMAExtension.pdb
+C:\CODE\HR-Code\Azure AD Token Expire - Nov 2021\MIM Code - (Code Base- Work phone Number Update)\O365 Solution - Deployed in Dev\AccountForestADMAExtension\obj\Debug\AccountForestADMAExtension.csprojResolveAssemblyReference.cache
+C:\CODE\HR-Code\Azure AD Token Expire - Nov 2021\MIM Code - (Code Base- Work phone Number Update)\O365 Solution - Deployed in Dev\AccountForestADMAExtension\obj\Debug\AccountForestADMAExtension.dll
+C:\CODE\HR-Code\Azure AD Token Expire - Nov 2021\MIM Code - (Code Base- Work phone Number Update)\O365 Solution - Deployed in Dev\AccountForestADMAExtension\obj\Debug\AccountForestADMAExtension.pdb
+C:\CODE\HR-Code\MIM Update for PPA GUID flow removal - April 2022\MIM Code - (PwdLastSet Updates for azure Token Revoke)\O365 Solution - Deployed in Dev\AccountForestADMAExtension\obj\Debug\AccountForestADMAExtension.csprojResolveAssemblyReference.cache
+C:\CODE\HR-Code\MIM Update for PPA GUID flow removal - April 2022\MIM Code - (PwdLastSet Updates for azure Token Revoke)\O365 Solution - Deployed in Dev\AccountForestADMAExtension\obj\Debug\AccountForestADMAExtension.dll
+C:\CODE\HR-Code\MIM Update for PPA GUID flow removal - April 2022\MIM Code - (PwdLastSet Updates for azure Token Revoke)\O365 Solution - Deployed in Dev\AccountForestADMAExtension\obj\Debug\AccountForestADMAExtension.pdb
