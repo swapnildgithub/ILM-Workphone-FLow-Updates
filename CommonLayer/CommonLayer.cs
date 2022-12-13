@@ -402,32 +402,128 @@ namespace CommonLayer_NameSpace
         /// <param name="mvObject"></param>
         /// <param name="csObject"></param>
         /// <returns></returns>
-        public static string GetUniqueMailNickname(string strdefaultmNickname, string strSamAccountName, MVEntry mvObject)
+        public static string GetUniqueMailNickname(ArrayList strdefaultmNicknameArr, string strSamAccountName, MVEntry mvObject)
         {
-            string strFinalMailnickName = strdefaultmNickname;
+            bool found=false;
 
-            // #CHG1324643 - Modifying ldap filter for UPN uniqueness fix            
-            string strLDAPFilterForMailNickname = "(&(|(mailNickName=" + strdefaultmNickname + "*)(userPrincipalName=" + strdefaultmNickname + "*))(!samAccountName=" + strSamAccountName + "))";
-            
-            DirectoryEntry mailNNameDirectoryEntry = new DirectoryEntry("LDAP://" + strRFServer + ":389/" + strRFDCPath, null, null, AuthenticationTypes.Secure);
-            DirectorySearcher dSearcher = new DirectorySearcher(mailNNameDirectoryEntry);
+           
 
-            //filter just user objects
-            dSearcher.Filter = strLDAPFilterForMailNickname;
-            dSearcher.PageSize = 1000;
-            dSearcher.SearchScope = SearchScope.Subtree;
-            dSearcher.Sort.Direction = System.DirectoryServices.SortDirection.Ascending;
-            dSearcher.Sort.PropertyName = "mailNickName";
-            bool IsUniqueMailnickname = false;
-            string strUniqueMailnickname = strdefaultmNickname;
-            string[] srchUpn = {};
+            //foreach (string defaultmNickname in strdefaultmNicknameArr)
+            for (int i=0;i<3;i++)
+                {
+                string defaultmNickname = strdefaultmNicknameArr[i].ToString();
+                //skip if defaultnickname is null or empty
+                if (defaultmNickname == "" || defaultmNickname == string.Empty) continue;
 
-            try
+                string strFinalMailnickName = defaultmNickname.ToLower();
+                string strdefaultmNickname = defaultmNickname.ToLower();
+                string strdefaultmNickname_underscore1 = null;
+                string strdefaultmNickname_underscore2 = null;
+                if (i == 0)
+                {
+                     strdefaultmNickname_underscore1 = strdefaultmNicknameArr[3].ToString();
+                     strdefaultmNickname_underscore2 = strdefaultmNicknameArr[4].ToString();
+                }
+                else if (i == 2)
+                {
+                     strdefaultmNickname_underscore1 = strdefaultmNicknameArr[5].ToString();
+                     strdefaultmNickname_underscore2 = strdefaultmNicknameArr[6].ToString();
+                }
+                // #CHG1324643 - Modifying ldap filter for UPN uniqueness fix            
+                // string strLDAPFilterForMailNickname = "(&(|(mailNickName=" + strdefaultmNickname + "*)(mailNickName=" + strdefaultmNickname_underscore1 + "*)(mailNickName=" + strdefaultmNickname_underscore2 + "*)(userPrincipalName=" + strdefaultmNickname + "*)(userPrincipalName=" + strdefaultmNickname_underscore1 + "*)(userPrincipalName=" + strdefaultmNickname_underscore2 + "*)(proxyAddresses=*" + strdefaultmNickname + "@*)(proxyAddresses=*" + strdefaultmNickname_underscore1 + "@*)(proxyAddresses=*" + strdefaultmNickname_underscore2 + "@*))(!samAccountName=" + strSamAccountName + "))";
+                string strLDAPFilterForMailNickname = "(&(|(mailNickName=" + strdefaultmNickname + "*)(mailNickName=" + strdefaultmNickname_underscore1 + "*)(mailNickName=" + strdefaultmNickname_underscore2 + "*)(userPrincipalName=" + strdefaultmNickname + "*)(userPrincipalName=" + strdefaultmNickname_underscore1 + "*)(userPrincipalName=" + strdefaultmNickname_underscore2 + "*))(!samAccountName=" + strSamAccountName + "))";
+                //string strLDAPFilterForMailNickname = "(&(|(|(|(mailNickName=" + strdefaultmNickname_underscore1 + "*)(userPrincipalName=" + strdefaultmNickname_underscore1 + "*)(proxyAddresses=*" + strdefaultmNickname_underscore1 + "@*))(|(mailNickName=" + strdefaultmNickname_underscore2 + "*)(userPrincipalName=" + strdefaultmNickname_underscore2 + "*)(proxyAddresses=*" + strdefaultmNickname_underscore2 + "@*)))(|(mailNickName=" + strdefaultmNickname + "*)(userPrincipalName=" + strdefaultmNickname + "*)(proxyAddresses=*" + strdefaultmNickname + "@*)))(!samAccountName=" + strSamAccountName + "))";
+                //string strLDAPFilterForMailNickname = "(&(|(proxyAddresses=*"+ strdefaultmNickname_underscore1 + "@*)(proxyAddresses=*" + strdefaultmNickname_underscore2 + "@*))(!samAccountName=" + strSamAccountName + "))";
+
+                if (i == 1)
+                {
+                    strLDAPFilterForMailNickname = "(&(|(mailNickName=" + strdefaultmNickname + "*)(userPrincipalName=" + strdefaultmNickname + "*))(!samAccountName=" + strSamAccountName + "))";
+                }
+                DirectoryEntry mailNNameDirectoryEntry = new DirectoryEntry("LDAP://" + strRFServer + ":389/" + strRFDCPath, null, null, AuthenticationTypes.Secure);
+                DirectorySearcher dSearcher = new DirectorySearcher(mailNNameDirectoryEntry);
+
+                //filter just user objects
+                dSearcher.Filter = strLDAPFilterForMailNickname;
+                dSearcher.PageSize = 1000;
+                dSearcher.SearchScope = SearchScope.Subtree;
+                dSearcher.Sort.Direction = System.DirectoryServices.SortDirection.Ascending;
+                dSearcher.Sort.PropertyName = "mailNickName";
+                bool IsUniqueMailnickname = false;
+                string strUniqueMailnickname = strdefaultmNickname;
+                MVEntry[] findResultList;
+                string[] srchUpn = { };
+                try
+                {
+                    // Get collection of all users (other then strSamAccountName) with strdefaultmNickname in mail, proxy, mailnickname or upn
+                    SearchResultCollection resultCollection = dSearcher.FindAll();
+                    findResultList = Utils.FindMVEntries("mailNickname", strdefaultmNickname, 10);
+                    if (resultCollection.Count > 0 || findResultList.Length>0)
+                    {
+                        found = true;
+                        continue;
+                    }
+                    else
+                    {
+                     //   strFinalMailnickName = GetCheckedMailNickName(strFinalMailnickName, mvObject);
+                        found = false;
+                        return strFinalMailnickName;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+            }
+
+            if (found)
             {
-                // Get collection of all users (other then strSamAccountName) with strdefaultmNickname in mail, proxy, mailnickname or upn
+                string strFinalMailnickName = null;
+                string strdefaultmNickname = null;
+                string strdefaultmNickname_underscore1 = null;
+                string strdefaultmNickname_underscore2 = null;
+                string strLDAPFilterForMailNickname = null;
+                MVEntry[] findResultList;
+                if (strdefaultmNicknameArr[1].ToString() != "" || strdefaultmNicknameArr[1].ToString() != string.Empty)
+                {
+                    strFinalMailnickName = strdefaultmNicknameArr[1].ToString().ToLower();
+                    strdefaultmNickname = strdefaultmNicknameArr[1].ToString().ToLower();
+                    findResultList = Utils.FindMVEntries("mailNickname", strdefaultmNickname, 10);
+                    // #CHG1324643 - Modifying ldap filter for UPN uniqueness fix            
+                    // strLDAPFilterForMailNickname = "(&(|(mailNickName=" + strdefaultmNickname + "*)(mailNickName=" + strdefaultmNickname_underscore1 + "*)(mailNickName=" + strdefaultmNickname_underscore2 + "*)(userPrincipalName=" + strdefaultmNickname + "*)(userPrincipalName=" + strdefaultmNickname_underscore1 + "*)(userPrincipalName=" + strdefaultmNickname_underscore2 + "*)(proxyAddresses=*" + strdefaultmNickname + "@*)(proxyAddresses=*" + strdefaultmNickname_underscore1 + "@*)(proxyAddresses=*" + strdefaultmNickname_underscore2 + "@*))(!samAccountName=" + strSamAccountName + "))";
+                    // strLDAPFilterForMailNickname = "(&(|(mailNickName=" + strdefaultmNickname + "*)(mailNickName=" + strdefaultmNickname_underscore1 + "*)(mailNickName=" + strdefaultmNickname_underscore2 + "*)(userPrincipalName=" + strdefaultmNickname + "*)(userPrincipalName=" + strdefaultmNickname_underscore1 + "*)(userPrincipalName=" + strdefaultmNickname_underscore2 + "*))(!samAccountName=" + strSamAccountName + "))";
+                    strLDAPFilterForMailNickname = "(&(|(mailNickName=" + strdefaultmNickname + "*)(userPrincipalName=" + strdefaultmNickname + "*))(!samAccountName=" + strSamAccountName + "))";
+
+                }
+                else
+                {
+                    strFinalMailnickName = strdefaultmNicknameArr[0].ToString().ToLower();
+                    strdefaultmNickname = strdefaultmNicknameArr[0].ToString().ToLower();
+                    findResultList = Utils.FindMVEntries("mailNickname", strdefaultmNickname, 10);
+                    strdefaultmNickname_underscore1 = strdefaultmNicknameArr[3].ToString().ToLower();
+                    strdefaultmNickname_underscore2 = strdefaultmNicknameArr[4].ToString().ToLower();
+                    // #CHG1324643 - Modifying ldap filter for UPN uniqueness fix            
+                    //strLDAPFilterForMailNickname = "(&(|(|(mailNickName=" + strdefaultmNickname_underscore1 + "*)(userPrincipalName=" + strdefaultmNickname_underscore1 + "*)(proxyAddresses=*" + strdefaultmNickname_underscore1 + "@*))(|(mailNickName=" + strdefaultmNickname_underscore2 + "*)(userPrincipalName=" + strdefaultmNickname_underscore2 + "*)(proxyAddresses=*" + strdefaultmNickname_underscore2 + "@*))(|(mailNickName=" + strdefaultmNickname + "*)(userPrincipalName=" + strdefaultmNickname + "*)(proxyAddresses=*" + strdefaultmNickname + "@*)))(!samAccountName=" + strSamAccountName + "))";
+                    strLDAPFilterForMailNickname = "(&(|(|(mailNickName=" + strdefaultmNickname_underscore1 + "*)(userPrincipalName=" + strdefaultmNickname_underscore1 + "*))(|(mailNickName=" + strdefaultmNickname_underscore2 + "*)(userPrincipalName=" + strdefaultmNickname_underscore2 + "*))(|(mailNickName=" + strdefaultmNickname + "*)(userPrincipalName=" + strdefaultmNickname + "*)))(!samAccountName=" + strSamAccountName + "))";
+
+                }
+
+                DirectoryEntry mailNNameDirectoryEntry = new DirectoryEntry("LDAP://" + strRFServer + ":389/" + strRFDCPath, null, null, AuthenticationTypes.Secure);
+                DirectorySearcher dSearcher = new DirectorySearcher(mailNNameDirectoryEntry);
+
+                //filter just user objects
+                dSearcher.Filter = strLDAPFilterForMailNickname;
+                dSearcher.PageSize = 1000;
+                dSearcher.SearchScope = SearchScope.Subtree;
+                dSearcher.Sort.Direction = System.DirectoryServices.SortDirection.Ascending;
+                dSearcher.Sort.PropertyName = "mailNickName";
+                bool IsUniqueMailnickname = false;
+                string strUniqueMailnickname = strdefaultmNickname;
+                int namesuffix = 1;
+                string[] srchUpn = { };
                 SearchResultCollection resultCollection = dSearcher.FindAll();
 
-                if (resultCollection.Count > 0)
+                //MVEntry[] findResultList = Utils.FindMVEntries("mailNickname", strdefaultmNickname, 1);
+                if (resultCollection.Count > 0 || findResultList.Length > 0 )
                 {
                     //search new mailnickname for all users found by incrementing by the search count
                     foreach (SearchResult userResults in resultCollection)
@@ -443,39 +539,32 @@ namespace CommonLayer_NameSpace
                         {
                             //increment the mailnickname since the strdefaultmNickname is already present based on the search results. search the new mailnickname in current userresult properties.
                             strFinalMailnickName = strdefaultmNickname + i.ToString();
-
+                            namesuffix = i;
                             // #CHG1324643 - Updaing code to search for unique mailnickname among existing mailnicknames and UPNs.
                             //If new mailnickname is not found in mailnicknames and upn then assign it to final mailnickname
-                            if (((userResults.Properties["mailNickName"].Count > 0) && (strFinalMailnickName.ToLower() != userResults.Properties["mailNickName"][0].ToString().ToLower())) &&
-                              ((userResults.Properties["userPrincipalName"].Count > 0) && (strFinalMailnickName.ToLower() != srchUpn[0].ToString().ToLower())))
+                             if (((userResults.Properties["mailNickName"].Count > 0) && (strFinalMailnickName.ToLower() != userResults.Properties["mailNickName"][0].ToString().ToLower())) &&
+                             ((userResults.Properties["userPrincipalName"].Count > 0) && (strFinalMailnickName.ToLower() != srchUpn[0].ToString().ToLower())))
                             {
                                 IsUniqueMailnickname = true;
                                 strUniqueMailnickname = strFinalMailnickName;
                             }
                         }
                     }
-                    if (IsUniqueMailnickname == true)
-					{
-						//HCM - Adding additional check in MV for multiple users being onboarded with same names in single job run
-						strUniqueMailnickname = GetCheckedMailNickName(strUniqueMailnickname, mvObject);
+                    
+                   if (IsUniqueMailnickname == true)
+                    {
+                        //HCM - Adding additional check in MV for multiple users being onboarded with same names in single job run
+                        strUniqueMailnickname = GetCheckedMailNickName(strdefaultmNickname, namesuffix, mvObject);
                         return strUniqueMailnickname;
-					}
+                    }
                     else
-					{
-						strdefaultmNickname = GetCheckedMailNickName(strdefaultmNickname, mvObject);
+                    {
+                        strdefaultmNickname = GetCheckedMailNickName(strdefaultmNickname, namesuffix, mvObject);
                         return strdefaultmNickname;
-					}
-                }
-                else
-                {
-					strFinalMailnickName = GetCheckedMailNickName(strFinalMailnickName, mvObject);
-                    return strFinalMailnickName;
+                    } 
                 }
             }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
+            return "";
         }
 
 		
@@ -499,7 +588,7 @@ namespace CommonLayer_NameSpace
             //"Remove "_" if last nm is null
             if (defaultmNickname.StartsWith("_"))
                 defaultmNickname = defaultmNickname.Remove(0, 1);
-            //Replace white spaces with "_"
+            //Remove white space if any
             if (defaultmNickname.Contains(" "))
                 defaultmNickname = defaultmNickname.Replace(" ", "_");
 
@@ -508,58 +597,164 @@ namespace CommonLayer_NameSpace
             return defaultmNickname;
 
         }
-		
-		/// <summary>
+
+        /// <summary>
         /// HCM - This method is used to build mailnickname from angliziced names in SAD
         /// </summary>
         /// <param name="mvObject"></param>
         /// <returns></returns>
-        public static string BuildMailNickName(CSEntry csObject)
+        public static ArrayList BuildMailNickName(CSEntry csObject)
         {
-            string pattern = "[^a-z0-9_\\-.]";
+            ArrayList mailNickNameArr = new ArrayList();
+            //string pattern = "[^a-z0-9_\\-.]";
+            string pattern = "[^a-z0-9\\.\\-.]";
             Regex rgx = new Regex(pattern, RegexOptions.IgnoreCase);
 
             string defaultmNickname = string.Empty;
-            if (csObject["ANGLCZD_LAST_NM"].IsPresent)
-                defaultmNickname = csObject["ANGLCZD_LAST_NM"].Value.ToString();
-            if (csObject["ANGLCZD_FIRST_NM"].IsPresent)
-                defaultmNickname = defaultmNickname.Trim() + "_" + csObject["ANGLCZD_FIRST_NM"].Value.ToString();
-            if (csObject["ANGLCZD_MDL_NM"].IsPresent)
-                defaultmNickname = defaultmNickname.Trim() + "_" + csObject["ANGLCZD_MDL_NM"].Value.ToString();
-            //"Remove "_" if last nm is null
-            if (defaultmNickname.StartsWith("_"))
-                defaultmNickname = defaultmNickname.Remove(0, 1);
-            //Replace white spaces with "_"
-            if (defaultmNickname.Contains(" "))
-                defaultmNickname = defaultmNickname.Replace(" ", "_");
+            string ANGLCZD_FIRST_NM = string.Empty;
+            string ANGLCZD_MDL_NM = string.Empty;
+            string ANGLCZD_LAST_NM = string.Empty;
+            
 
-            defaultmNickname = rgx.Replace(defaultmNickname,"");
+                if (csObject["ANGLCZD_FIRST_NM"].IsPresent)
+                {
+                    ANGLCZD_FIRST_NM = csObject["ANGLCZD_FIRST_NM"].Value.ToString();
+                    //Remove starting and ending "." if any, removing space if any, removing extra punctuations if any
+                    ANGLCZD_FIRST_NM = (ANGLCZD_FIRST_NM.StartsWith(".")) ? ANGLCZD_FIRST_NM.Remove(0, 1) : ANGLCZD_FIRST_NM;
+                    ANGLCZD_FIRST_NM = (ANGLCZD_FIRST_NM.EndsWith(".")) ? ANGLCZD_FIRST_NM.Remove(ANGLCZD_FIRST_NM.Length - 1, 1) : ANGLCZD_FIRST_NM;
+                    ANGLCZD_FIRST_NM = (ANGLCZD_FIRST_NM.Contains(" ")) ? ANGLCZD_FIRST_NM.Replace(" ", "") : ANGLCZD_FIRST_NM;
+                    ANGLCZD_FIRST_NM = rgx.Replace(ANGLCZD_FIRST_NM, "");
 
-            return defaultmNickname;
+                    defaultmNickname = ANGLCZD_FIRST_NM;
+                }
+                if (csObject["ANGLCZD_LAST_NM"].IsPresent)
+                {
+                    ANGLCZD_LAST_NM = csObject["ANGLCZD_LAST_NM"].Value.ToString();
+                    //Remove starting and ending "." if any, removing space if any, removing extra punctuations if any
+                    ANGLCZD_LAST_NM = (ANGLCZD_LAST_NM.StartsWith(".")) ? ANGLCZD_LAST_NM.Remove(0, 1) : ANGLCZD_LAST_NM;
+                    ANGLCZD_LAST_NM = (ANGLCZD_LAST_NM.EndsWith(".")) ? ANGLCZD_LAST_NM.Remove(ANGLCZD_LAST_NM.Length - 1, 1) : ANGLCZD_LAST_NM;
+                    ANGLCZD_LAST_NM = (ANGLCZD_LAST_NM.Contains(" ")) ? ANGLCZD_LAST_NM.Replace(" ", "") : ANGLCZD_LAST_NM;
+                    ANGLCZD_LAST_NM = rgx.Replace(ANGLCZD_LAST_NM, "");
+
+                    defaultmNickname = defaultmNickname.Trim() + "." + ANGLCZD_LAST_NM;
+                }
+
+                //"Remove "." if last nm is null
+                if (defaultmNickname.StartsWith("."))
+                    defaultmNickname = defaultmNickname.Remove(0, 1);
+
+                if (defaultmNickname == "" || defaultmNickname == string.Empty)
+                {
+                return mailNickNameArr;
+                
+                //goto startbuildnickname;
+                }
+
+                 mailNickNameArr.Add(defaultmNickname);
+
+                //option 2 FirstNM.MDLNM(FirstLetter).lastNM
+
+                defaultmNickname = string.Empty;
+                if (csObject["ANGLCZD_MDL_NM"].IsPresent && csObject["ANGLCZD_FIRST_NM"].IsPresent && csObject["ANGLCZD_LAST_NM"].IsPresent)
+                {
+                    ANGLCZD_MDL_NM = csObject["ANGLCZD_MDL_NM"].Value.ToString();
+                    //Remove starting and ending "." if any, removing space if any, removing extra punctuations if any
+                    ANGLCZD_MDL_NM = (ANGLCZD_MDL_NM.StartsWith(".")) ? ANGLCZD_MDL_NM.Remove(0, 1) : ANGLCZD_MDL_NM;
+                    ANGLCZD_MDL_NM = (ANGLCZD_MDL_NM.EndsWith(".")) ? ANGLCZD_MDL_NM.Remove(ANGLCZD_MDL_NM.Length - 1, 1) : ANGLCZD_MDL_NM;
+                    ANGLCZD_MDL_NM = (ANGLCZD_MDL_NM.Contains(" ")) ? ANGLCZD_MDL_NM.Replace(" ", "") : ANGLCZD_MDL_NM;
+                    ANGLCZD_MDL_NM = rgx.Replace(ANGLCZD_MDL_NM, "");
+
+                    defaultmNickname = ANGLCZD_FIRST_NM + "." + ANGLCZD_MDL_NM.Substring(0, 1) + "." + ANGLCZD_LAST_NM;
+                }
+
+                mailNickNameArr.Add(defaultmNickname);
+
+                //option 3 FirstNM.MDLNM.lastNM
+                defaultmNickname = string.Empty;
+                if (csObject["ANGLCZD_MDL_NM"].IsPresent && csObject["ANGLCZD_FIRST_NM"].IsPresent && csObject["ANGLCZD_LAST_NM"].IsPresent)
+                    defaultmNickname = ANGLCZD_FIRST_NM + "." + ANGLCZD_MDL_NM + "." + ANGLCZD_LAST_NM;
+
+                mailNickNameArr.Add(defaultmNickname);
+
+
+                // Build MNN with Underscore for option 1 (first_last)
+                defaultmNickname = string.Empty;
+                if (csObject["ANGLCZD_FIRST_NM"].IsPresent) defaultmNickname = ANGLCZD_FIRST_NM;
+
+                if (csObject["ANGLCZD_LAST_NM"].IsPresent) defaultmNickname = defaultmNickname.Trim() + "_" + ANGLCZD_LAST_NM;
+
+                //"Remove "_" if first nm is null
+                if (defaultmNickname.StartsWith("_"))
+                    defaultmNickname = defaultmNickname.Remove(0, 1);
+
+                mailNickNameArr.Add(defaultmNickname);
+
+
+                // Build MNN with Underscore for option 1 (last_first)
+                defaultmNickname = string.Empty;
+                if (csObject["ANGLCZD_LAST_NM"].IsPresent) defaultmNickname = ANGLCZD_LAST_NM;
+
+                if (csObject["ANGLCZD_FIRST_NM"].IsPresent) defaultmNickname = defaultmNickname.Trim() + "_" + ANGLCZD_FIRST_NM;
+
+                //"Remove "_" if last nm is null
+                if (defaultmNickname.StartsWith("_"))
+                    defaultmNickname = defaultmNickname.Remove(0, 1);
+
+                mailNickNameArr.Add(defaultmNickname);
+
+
+                //Build Mailnickname with underscore for option 3 (FirstNM_MDLNM_lastNM)
+                defaultmNickname = string.Empty;
+                if (csObject["ANGLCZD_MDL_NM"].IsPresent && csObject["ANGLCZD_FIRST_NM"].IsPresent && csObject["ANGLCZD_LAST_NM"].IsPresent)
+                    defaultmNickname = ANGLCZD_FIRST_NM + "_" + ANGLCZD_MDL_NM + "_" + ANGLCZD_LAST_NM;
+
+                mailNickNameArr.Add(defaultmNickname);
+
+
+                //Build Mailnickname with underscore for option 3 (lastNM_firstNM_middleNM)
+                defaultmNickname = string.Empty;
+                if (csObject["ANGLCZD_MDL_NM"].IsPresent && csObject["ANGLCZD_FIRST_NM"].IsPresent && csObject["ANGLCZD_LAST_NM"].IsPresent)
+                    defaultmNickname = ANGLCZD_LAST_NM + "_" + ANGLCZD_FIRST_NM + "_" + ANGLCZD_MDL_NM;
+
+                mailNickNameArr.Add(defaultmNickname);
+
+             
+
+              return mailNickNameArr;
+
+        
+
+
+
 
         }
 		
 		// This function creates a unique mailNickname for use in a metaverse entry.
-		public static string GetCheckedMailNickName(string mailNickname, MVEntry mventry)
+		public static string GetCheckedMailNickName(string mailNickname,int intSuffix, MVEntry mventry)
 		{
 			MVEntry[] findResultList = null;
-			string checkedMailNickname = mailNickname;
+            //string checkedMailNickname = mailNickname;
+            string checkedMailNickname = mailNickname +intSuffix.ToString();
 
 			// Create a unique naming attribute by adding a number to
 			// the existing mailNickname value.
-			for (int nameSuffix = 1; nameSuffix < 100; nameSuffix++)
+			for (int nameSuffix = intSuffix; nameSuffix < 100; nameSuffix++)
 			{
 				// Check if the mailNickname value exists in the metaverse by 
 				// using the Utils.FindMVEntries method.
 				findResultList = Utils.FindMVEntries("mailNickname", checkedMailNickname, 1);
+
+
 				if (findResultList.Length == 0)
 				{
 					// The current mailNickname is not in use.
 					return(checkedMailNickname);
 				}
 
-				//Check if a metaverse entry was found with the specified mailNickname, 
-				MVEntry mvEntryFound = findResultList[0];
+
+
+                //Check if a metaverse entry was found with the specified mailNickname, 
+                MVEntry mvEntryFound = findResultList[0];
 				if (mvEntryFound.Equals(mventry))
 				{
 					return(checkedMailNickname);

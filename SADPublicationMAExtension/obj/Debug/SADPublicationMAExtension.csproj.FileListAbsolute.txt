@@ -1,3 +1,8 @@
 C:\HR-Code\HR Code - Elanco Release\O365POC\SADPublicationMAExtension\obj\Debug\SADPublicationMAExtension.dll
 C:\HR-Code\HR Code - Elanco Release\O365POC\SADPublicationMAExtension\obj\Debug\SADPublicationMAExtension.pdb
 C:\HR-Code\HR Code - Elanco Release\O365POC\SADPublicationMAExtension\obj\Debug\SADPublicationMAExtension.csprojResolveAssemblyReference.cache
+C:\Program Files\Microsoft Forefront Identity Manager\2010\Synchronization Service\Extensions\SADPublicationMAExtension.dll
+C:\Program Files\Microsoft Forefront Identity Manager\2010\Synchronization Service\Extensions\SADPublicationMAExtension.pdb
+C:\CODE\HR-Code\Mailnickname Update July 2022\MIM Code - (PPA_SVC_GUID Flow Update)\O365 Solution - Deployed in Dev\SADPublicationMAExtension\obj\Debug\SADPublicationMAExtension.csprojResolveAssemblyReference.cache
+C:\CODE\HR-Code\Mailnickname Update July 2022\MIM Code - (PPA_SVC_GUID Flow Update)\O365 Solution - Deployed in Dev\SADPublicationMAExtension\obj\Debug\SADPublicationMAExtension.dll
+C:\CODE\HR-Code\Mailnickname Update July 2022\MIM Code - (PPA_SVC_GUID Flow Update)\O365 Solution - Deployed in Dev\SADPublicationMAExtension\obj\Debug\SADPublicationMAExtension.pdb

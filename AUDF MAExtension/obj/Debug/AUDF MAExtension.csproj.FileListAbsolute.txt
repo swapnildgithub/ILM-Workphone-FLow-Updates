@@ -1,0 +1,4 @@
+C:\Program Files\Microsoft Identity Integration Server\Extensions\AUDF MAExtension.dll
+C:\Program Files\Microsoft Identity Integration Server\Extensions\AUDF MAExtension.pdb
+C:\CODE\HR-Code\Mailnickname Update July 2022\MIM Code - (PPA_SVC_GUID Flow Update)\O365 Solution - Deployed in Dev\AUDF MAExtension\obj\Debug\AUDF MAExtension.dll
+C:\CODE\HR-Code\Mailnickname Update July 2022\MIM Code - (PPA_SVC_GUID Flow Update)\O365 Solution - Deployed in Dev\AUDF MAExtension\obj\Debug\AUDF MAExtension.pdb

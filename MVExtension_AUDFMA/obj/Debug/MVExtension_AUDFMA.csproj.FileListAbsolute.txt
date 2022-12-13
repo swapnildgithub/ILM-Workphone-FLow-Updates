@@ -1,3 +1,8 @@
 C:\HR-Code\HR Code - Elanco Release\O365POC\MVExtension_AUDFMA\obj\Debug\MVExtension_AUDFMA.csprojResolveAssemblyReference.cache
 C:\HR-Code\HR Code - Elanco Release\O365POC\MVExtension_AUDFMA\obj\Debug\MVExtension_AUDFMA.dll
 C:\HR-Code\HR Code - Elanco Release\O365POC\MVExtension_AUDFMA\obj\Debug\MVExtension_AUDFMA.pdb
+C:\Program Files\Microsoft Forefront Identity Manager\2010\Synchronization Service\Extensions\MVExtension_AUDFMA.dll
+C:\Program Files\Microsoft Forefront Identity Manager\2010\Synchronization Service\Extensions\MVExtension_AUDFMA.pdb
+C:\CODE\HR-Code\Mailnickname Update July 2022\MIM Code - (PPA_SVC_GUID Flow Update)\O365 Solution - Deployed in Dev\MVExtension_AUDFMA\obj\Debug\MVExtension_AUDFMA.csprojResolveAssemblyReference.cache
+C:\CODE\HR-Code\Mailnickname Update July 2022\MIM Code - (PPA_SVC_GUID Flow Update)\O365 Solution - Deployed in Dev\MVExtension_AUDFMA\obj\Debug\MVExtension_AUDFMA.dll
+C:\CODE\HR-Code\Mailnickname Update July 2022\MIM Code - (PPA_SVC_GUID Flow Update)\O365 Solution - Deployed in Dev\MVExtension_AUDFMA\obj\Debug\MVExtension_AUDFMA.pdb

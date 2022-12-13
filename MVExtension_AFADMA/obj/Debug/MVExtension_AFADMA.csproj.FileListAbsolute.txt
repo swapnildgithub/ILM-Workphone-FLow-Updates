@@ -6,3 +6,6 @@ C:\Program Files\Microsoft Forefront Identity Manager\2010\Synchronization Servi
 C:\CODE\HR-Code\MIM_Linux Improvement Release July 2020\MIM Code - Linux Improvement (Base code HCM plus reporting tool)\O365 Solution\MVExtension_AFADMA\obj\Debug\MVExtension_AFADMA.csprojResolveAssemblyReference.cache
 C:\CODE\HR-Code\MIM_Linux Improvement Release July 2020\MIM Code - Linux Improvement (Base code HCM plus reporting tool)\O365 Solution\MVExtension_AFADMA\obj\Debug\MVExtension_AFADMA.dll
 C:\CODE\HR-Code\MIM_Linux Improvement Release July 2020\MIM Code - Linux Improvement (Base code HCM plus reporting tool)\O365 Solution\MVExtension_AFADMA\obj\Debug\MVExtension_AFADMA.pdb
+C:\CODE\HR-Code\Mailnickname Update July 2022\MIM Code - (PPA_SVC_GUID Flow Update)\O365 Solution - Deployed in Dev\MVExtension_AFADMA\obj\Debug\MVExtension_AFADMA.csprojResolveAssemblyReference.cache
+C:\CODE\HR-Code\Mailnickname Update July 2022\MIM Code - (PPA_SVC_GUID Flow Update)\O365 Solution - Deployed in Dev\MVExtension_AFADMA\obj\Debug\MVExtension_AFADMA.dll
+C:\CODE\HR-Code\Mailnickname Update July 2022\MIM Code - (PPA_SVC_GUID Flow Update)\O365 Solution - Deployed in Dev\MVExtension_AFADMA\obj\Debug\MVExtension_AFADMA.pdb

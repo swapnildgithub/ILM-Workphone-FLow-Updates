@@ -1,3 +1,8 @@
 C:\HR-Code\HR Code - Elanco Release\O365POC\LinuxUserMAExtension\obj\Debug\LinuxUserMAExtension.csprojResolveAssemblyReference.cache
 C:\HR-Code\HR Code - Elanco Release\O365POC\LinuxUserMAExtension\obj\Debug\LinuxUserMAExtension.dll
 C:\HR-Code\HR Code - Elanco Release\O365POC\LinuxUserMAExtension\obj\Debug\LinuxUserMAExtension.pdb
+C:\Program Files\Microsoft Forefront Identity Manager\2010\Synchronization Service\Extensions\LinuxUserMAExtension.dll
+C:\Program Files\Microsoft Forefront Identity Manager\2010\Synchronization Service\Extensions\LinuxUserMAExtension.pdb
+C:\CODE\HR-Code\Mailnickname Update July 2022\MIM Code - (PPA_SVC_GUID Flow Update)\O365 Solution - Deployed in Dev\LinuxUserMAExtension\obj\Debug\LinuxUserMAExtension.csprojResolveAssemblyReference.cache
+C:\CODE\HR-Code\Mailnickname Update July 2022\MIM Code - (PPA_SVC_GUID Flow Update)\O365 Solution - Deployed in Dev\LinuxUserMAExtension\obj\Debug\LinuxUserMAExtension.dll
+C:\CODE\HR-Code\Mailnickname Update July 2022\MIM Code - (PPA_SVC_GUID Flow Update)\O365 Solution - Deployed in Dev\LinuxUserMAExtension\obj\Debug\LinuxUserMAExtension.pdb

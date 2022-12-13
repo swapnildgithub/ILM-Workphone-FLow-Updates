@@ -1,2 +1,7 @@
 C:\HR-Code\HR Code - Elanco Release\O365POC\MVExtension_IntEDSWorkerMA\obj\Debug\MVExtension_IntEDSWorkerMA.dll
 C:\HR-Code\HR Code - Elanco Release\O365POC\MVExtension_IntEDSWorkerMA\obj\Debug\MVExtension_IntEDSWorkerMA.pdb
+C:\Program Files\Microsoft Forefront Identity Manager\2010\Synchronization Service\Extensions\MVExtension_IntEDSWorkerMA.dll
+C:\Program Files\Microsoft Forefront Identity Manager\2010\Synchronization Service\Extensions\MVExtension_IntEDSWorkerMA.pdb
+C:\CODE\HR-Code\Mailnickname Update July 2022\MIM Code - (PPA_SVC_GUID Flow Update)\O365 Solution - Deployed in Dev\MVExtension_IntEDSWorkerMA\obj\Debug\MVExtension_IntEDSWorkerMA.csprojResolveAssemblyReference.cache
+C:\CODE\HR-Code\Mailnickname Update July 2022\MIM Code - (PPA_SVC_GUID Flow Update)\O365 Solution - Deployed in Dev\MVExtension_IntEDSWorkerMA\obj\Debug\MVExtension_IntEDSWorkerMA.dll
+C:\CODE\HR-Code\Mailnickname Update July 2022\MIM Code - (PPA_SVC_GUID Flow Update)\O365 Solution - Deployed in Dev\MVExtension_IntEDSWorkerMA\obj\Debug\MVExtension_IntEDSWorkerMA.pdb

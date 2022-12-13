@@ -24,3 +24,9 @@ C:\CODE\HR-Code\WorkPhone Flow Updates - May 2021\MIM Code - (Base code - Linux 
 C:\CODE\HR-Code\MIM Update for PPA GUID flow removal - April 2022\MIM Code - (PwdLastSet Updates for azure Token Revoke)\O365 Solution - Deployed in Dev\CommonLayer\obj\Debug\CommonLayer.csprojResolveAssemblyReference.cache
 C:\CODE\HR-Code\MIM Update for PPA GUID flow removal - April 2022\MIM Code - (PwdLastSet Updates for azure Token Revoke)\O365 Solution - Deployed in Dev\CommonLayer\obj\Debug\CommonLayer.dll
 C:\CODE\HR-Code\MIM Update for PPA GUID flow removal - April 2022\MIM Code - (PwdLastSet Updates for azure Token Revoke)\O365 Solution - Deployed in Dev\CommonLayer\obj\Debug\CommonLayer.pdb
+C:\CODE\HR-Code\Mailnickname Update July 2022\MIM Code - (PPA_SVC_GUID Flow Update)\O365 Solution - Deployed in Dev\CommonLayer\obj\Debug\CommonLayer.csprojResolveAssemblyReference.cache
+C:\CODE\HR-Code\Mailnickname Update July 2022\MIM Code - (PPA_SVC_GUID Flow Update)\O365 Solution - Deployed in Dev\CommonLayer\obj\Debug\CommonLayer.dll
+C:\CODE\HR-Code\Mailnickname Update July 2022\MIM Code - (PPA_SVC_GUID Flow Update)\O365 Solution - Deployed in Dev\CommonLayer\obj\Debug\CommonLayer.pdb
+C:\CODE\HR-Code\Mailnickname Update July 2022\MIM Code - (PPA_SVC_GUID Flow Update) - Krishna\O365 Solution - Deployed in Dev\CommonLayer\obj\Debug\CommonLayer.csprojResolveAssemblyReference.cache
+C:\CODE\HR-Code\Mailnickname Update July 2022\MIM Code - (PPA_SVC_GUID Flow Update) - Krishna\O365 Solution - Deployed in Dev\CommonLayer\obj\Debug\CommonLayer.dll
+C:\CODE\HR-Code\Mailnickname Update July 2022\MIM Code - (PPA_SVC_GUID Flow Update) - Krishna\O365 Solution - Deployed in Dev\CommonLayer\obj\Debug\CommonLayer.pdb

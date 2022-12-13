@@ -15,3 +15,9 @@ C:\Program Files\Microsoft Forefront Identity Manager\2010\Synchronization Servi
 C:\CODE\HR-Code\HCM and Workday Release\MIM Code - Task_3_IDM SAD mapping with Mnn changes\O365 Solution - with Mnn Changes\StagingAreaDatabaseMAExtension\obj\Debug\StagingAreaDatabaseMAExtension.csprojResolveAssemblyReference.cache
 C:\CODE\HR-Code\HCM and Workday Release\MIM Code - Task_3_IDM SAD mapping with Mnn changes\O365 Solution - with Mnn Changes\StagingAreaDatabaseMAExtension\obj\Debug\StagingAreaDatabaseMAExtension.dll
 C:\CODE\HR-Code\HCM and Workday Release\MIM Code - Task_3_IDM SAD mapping with Mnn changes\O365 Solution - with Mnn Changes\StagingAreaDatabaseMAExtension\obj\Debug\StagingAreaDatabaseMAExtension.pdb
+C:\CODE\HR-Code\Mailnickname Update July 2022\MIM Code - (PPA_SVC_GUID Flow Update) - Krishna\O365 Solution - Deployed in Dev\StagingAreaDatabaseMAExtension\obj\Debug\StagingAreaDatabaseMAExtension.csprojResolveAssemblyReference.cache
+C:\CODE\HR-Code\Mailnickname Update July 2022\MIM Code - (PPA_SVC_GUID Flow Update) - Krishna\O365 Solution - Deployed in Dev\StagingAreaDatabaseMAExtension\obj\Debug\StagingAreaDatabaseMAExtension.dll
+C:\CODE\HR-Code\Mailnickname Update July 2022\MIM Code - (PPA_SVC_GUID Flow Update) - Krishna\O365 Solution - Deployed in Dev\StagingAreaDatabaseMAExtension\obj\Debug\StagingAreaDatabaseMAExtension.pdb
+C:\CODE\HR-Code\Mailnickname Update July 2022\MIM Code - (PPA_SVC_GUID Flow Update)\O365 Solution - Deployed in Dev\StagingAreaDatabaseMAExtension\obj\Debug\StagingAreaDatabaseMAExtension.csprojResolveAssemblyReference.cache
+C:\CODE\HR-Code\Mailnickname Update July 2022\MIM Code - (PPA_SVC_GUID Flow Update)\O365 Solution - Deployed in Dev\StagingAreaDatabaseMAExtension\obj\Debug\StagingAreaDatabaseMAExtension.dll
+C:\CODE\HR-Code\Mailnickname Update July 2022\MIM Code - (PPA_SVC_GUID Flow Update)\O365 Solution - Deployed in Dev\StagingAreaDatabaseMAExtension\obj\Debug\StagingAreaDatabaseMAExtension.pdb

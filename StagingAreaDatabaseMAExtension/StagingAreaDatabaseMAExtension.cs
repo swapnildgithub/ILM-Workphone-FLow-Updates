@@ -742,11 +742,28 @@ namespace Mms_ManagementAgent_StagingAreaDatabaseMAExtension
                                         //HCM - Creating Unique MailNickname for new Mailcontacts.
                                         if (!mventry["mailNickname"].IsPresent)
                                         {
-                                            string defaultmNickname = CommonLayer.BuildMailNickName(csentry);
-                                            if (defaultmNickname != string.Empty)
+                                            ArrayList defaultmNickname = CommonLayer.BuildMailNickName(csentry);
+                                            if (defaultmNickname.Count>0)
                                             {
-                                                mventry["mailNickname"].Value = CommonLayer.GetUniqueMailNickname(defaultmNickname.ToLower(), csentry["SYSTEM_ID"].Value.ToLower(), mventry);
+                                                mventry["mailNickname"].Value = CommonLayer.GetUniqueMailNickname(defaultmNickname, csentry["SYSTEM_ID"].Value.ToLower(), mventry);
                                             }
+                                            else
+                                        {
+                                            string ExceptionMessage = defaultmNickname
+                                       + " - mailNickname can not be created as firstanem and lastname is null";
+                                            sSource = "SAD MA";
+                                            sLog = "Application";
+                                            sEvent = ExceptionMessage;
+
+                                            if (!EventLog.SourceExists(sSource))
+                                                EventLog.CreateEventSource(sSource, sLog);
+
+                                            EventLog.WriteEntry(sSource, sEvent, EventLogEntryType.Error, 8031);
+                                            // If a tag does not exist in the xml, then the stopped-extension-dll 
+                                            // error will be thrown.
+                                            mventry["mailNickname"].Delete();
+                                            throw new ArgumentException("ANGLCZD_FIRST_NM and ANGLCZD_LAST_NM is not present or null"); //Exception thrown so that the user is not created in MV
+                                        }
                                         }
                                     }
                                     /*
@@ -801,12 +818,29 @@ namespace Mms_ManagementAgent_StagingAreaDatabaseMAExtension
                                             //HCM - Creating Unique MailNickname 
                                             if (!mventry["mailNickname"].IsPresent)
                                             {
-                                                string defaultmNickname = CommonLayer.BuildMailNickName(csentry);
-                                                if (defaultmNickname != string.Empty)
+                                                ArrayList defaultmNickname = CommonLayer.BuildMailNickName(csentry);
+                                                if (defaultmNickname.Count>0)
                                                 {
-                                                    mventry["mailNickname"].Value = CommonLayer.GetUniqueMailNickname(defaultmNickname.ToLower(), csentry["SYSTEM_ID"].Value.ToLower(), mventry);
+                                                    mventry["mailNickname"].Value = CommonLayer.GetUniqueMailNickname(defaultmNickname, csentry["SYSTEM_ID"].Value.ToLower(), mventry);
                                                 }
+                                            else
+                                            {
+                                                string ExceptionMessage = defaultmNickname
+                                           + " - mailNickname can not be created as firstanem and lastname is null";
+                                                sSource = "SAD MA";
+                                                sLog = "Application";
+                                                sEvent = ExceptionMessage;
+
+                                                if (!EventLog.SourceExists(sSource))
+                                                    EventLog.CreateEventSource(sSource, sLog);
+
+                                                EventLog.WriteEntry(sSource, sEvent, EventLogEntryType.Error, 8031);
+                                                // If a tag does not exist in the xml, then the stopped-extension-dll 
+                                                // error will be thrown.
+                                                mventry["mailNickname"].Delete();
+                                                throw new ArgumentException("ANGLCZD_FIRST_NM and ANGLCZD_LAST_NM is not present or null"); //Exception thrown so that the user is not created in MV
                                             }
+                                        }
 
                                         }
                                         #endregion
@@ -824,12 +858,29 @@ namespace Mms_ManagementAgent_StagingAreaDatabaseMAExtension
                                             //HCM - Creating Unique MailNickname for new Mailcontacts.
                                             if (!mventry["mailNickname"].IsPresent)
                                             {
-                                                string defaultmNickname = CommonLayer.BuildMailNickName(csentry);
-                                                if (defaultmNickname != string.Empty)
+                                                ArrayList defaultmNickname = CommonLayer.BuildMailNickName(csentry);
+                                                if (defaultmNickname.Count>0)
                                                 {
-                                                    mventry["mailNickname"].Value = CommonLayer.GetUniqueMailNickname(defaultmNickname.ToLower(), csentry["SYSTEM_ID"].Value.ToLower(),mventry);
+                                                    mventry["mailNickname"].Value = CommonLayer.GetUniqueMailNickname(defaultmNickname, csentry["SYSTEM_ID"].Value.ToLower(),mventry);
                                                 }
+                                            else
+                                            {
+                                                string ExceptionMessage = defaultmNickname
+                                           + " - mailNickname can not be created as firstanem and lastname is null";
+                                                sSource = "SAD MA";
+                                                sLog = "Application";
+                                                sEvent = ExceptionMessage;
+
+                                                if (!EventLog.SourceExists(sSource))
+                                                    EventLog.CreateEventSource(sSource, sLog);
+
+                                                EventLog.WriteEntry(sSource, sEvent, EventLogEntryType.Error, 8031);
+                                                // If a tag does not exist in the xml, then the stopped-extension-dll 
+                                                // error will be thrown.
+                                                mventry["mailNickname"].Delete();
+                                                throw new ArgumentException("ANGLCZD_FIRST_NM and ANGLCZD_LAST_NM is not present or null"); //Exception thrown so that the user is not created in MV
                                             }
+                                        }
                                         }
                                         /*else
                                         {
@@ -852,12 +903,29 @@ namespace Mms_ManagementAgent_StagingAreaDatabaseMAExtension
                                             //HCM - Creating Unique MailNickname
                                             if (!mventry["mailNickname"].IsPresent)
                                             {
-                                                string defaultmNickname = CommonLayer.BuildMailNickName(csentry);
-                                                if (defaultmNickname != string.Empty)
+                                                ArrayList defaultmNickname = CommonLayer.BuildMailNickName(csentry);
+                                                if (defaultmNickname.Count>0)
                                                 {
-                                                    mventry["mailNickname"].Value = CommonLayer.GetUniqueMailNickname(defaultmNickname.ToLower(), csentry["SYSTEM_ID"].Value.ToLower(), mventry);
+                                                    mventry["mailNickname"].Value = CommonLayer.GetUniqueMailNickname(defaultmNickname, csentry["SYSTEM_ID"].Value.ToLower(), mventry);
                                                 }
+                                            else
+                                            {
+                                                string ExceptionMessage = defaultmNickname
+                                           + " - mailNickname can not be created as firstanem and lastname is null";
+                                                sSource = "SAD MA";
+                                                sLog = "Application";
+                                                sEvent = ExceptionMessage;
+
+                                                if (!EventLog.SourceExists(sSource))
+                                                    EventLog.CreateEventSource(sSource, sLog);
+
+                                                EventLog.WriteEntry(sSource, sEvent, EventLogEntryType.Error, 8031);
+                                                // If a tag does not exist in the xml, then the stopped-extension-dll 
+                                                // error will be thrown.
+                                                mventry["mailNickname"].Delete();
+                                                throw new ArgumentException("ANGLCZD_FIRST_NM and ANGLCZD_LAST_NM is not present or null"); //Exception thrown so that the user is not created in MV
                                             }
+                                        }
                                         }
                                         else
                                         {
@@ -903,12 +971,29 @@ namespace Mms_ManagementAgent_StagingAreaDatabaseMAExtension
                                                 //HCM - Creating Unique MailNickname
                                                 if (!mventry["mailNickname"].IsPresent)
                                                 {
-                                                    string defaultmNickname = CommonLayer.BuildMailNickName(csentry);
-                                                    if (defaultmNickname != string.Empty)
+                                                    ArrayList defaultmNickname = CommonLayer.BuildMailNickName(csentry);
+                                                    if (defaultmNickname.Count>0)
                                                     {
-                                                        mventry["mailNickname"].Value = CommonLayer.GetUniqueMailNickname(defaultmNickname.ToLower(), csentry["SYSTEM_ID"].Value.ToLower(), mventry);
+                                                        mventry["mailNickname"].Value = CommonLayer.GetUniqueMailNickname(defaultmNickname, csentry["SYSTEM_ID"].Value.ToLower(), mventry);
                                                     }
+                                                else
+                                                {
+                                                    string ExceptionMessage = defaultmNickname
+                                               + " - mailNickname can not be created as firstanem and lastname is null";
+                                                    sSource = "SAD MA";
+                                                    sLog = "Application";
+                                                    sEvent = ExceptionMessage;
+
+                                                    if (!EventLog.SourceExists(sSource))
+                                                        EventLog.CreateEventSource(sSource, sLog);
+
+                                                    EventLog.WriteEntry(sSource, sEvent, EventLogEntryType.Error, 8031);
+                                                    // If a tag does not exist in the xml, then the stopped-extension-dll 
+                                                    // error will be thrown.
+                                                    mventry["mailNickname"].Delete();
+                                                    throw new ArgumentException("ANGLCZD_FIRST_NM and ANGLCZD_LAST_NM is not present or null"); //Exception thrown so that the user is not created in MV
                                                 }
+                                            }
                                             }
                                             else// if msExchHideFromAddressList is true
                                             {
@@ -955,12 +1040,29 @@ namespace Mms_ManagementAgent_StagingAreaDatabaseMAExtension
                                             //HCM - Creating Unique MailNickname
                                             if (!mventry["mailNickname"].IsPresent)
                                             {
-                                                string defaultmNickname = CommonLayer.BuildMailNickName(csentry);
-                                                if (defaultmNickname != string.Empty)
+                                                ArrayList defaultmNickname = CommonLayer.BuildMailNickName(csentry);
+                                                if (defaultmNickname.Count>0)
                                                 {
-                                                    mventry["mailNickname"].Value = CommonLayer.GetUniqueMailNickname(defaultmNickname.ToLower(), csentry["SYSTEM_ID"].Value.ToLower(), mventry);
+                                                    mventry["mailNickname"].Value = CommonLayer.GetUniqueMailNickname(defaultmNickname, csentry["SYSTEM_ID"].Value.ToLower(), mventry);
                                                 }
+                                            else
+                                            {
+                                                string ExceptionMessage = defaultmNickname
+                                           + " - mailNickname can not be created as firstanem and lastname is null";
+                                                sSource = "SAD MA";
+                                                sLog = "Application";
+                                                sEvent = ExceptionMessage;
+
+                                                if (!EventLog.SourceExists(sSource))
+                                                    EventLog.CreateEventSource(sSource, sLog);
+
+                                                EventLog.WriteEntry(sSource, sEvent, EventLogEntryType.Error, 8031);
+                                                // If a tag does not exist in the xml, then the stopped-extension-dll 
+                                                // error will be thrown.
+                                                mventry["mailNickname"].Delete();
+                                                throw new ArgumentException("ANGLCZD_FIRST_NM and ANGLCZD_LAST_NM is not present or null"); //Exception thrown so that the user is not created in MV
                                             }
+                                        }
                                         }
                                     }
                                     break;
@@ -1599,7 +1701,14 @@ namespace Mms_ManagementAgent_StagingAreaDatabaseMAExtension
             else if (findResultList.Length == 1) // If a metaverse entry is found with the specified commonName, check if this is the entry that is being processed
             {
                 MVEntry mvEntryFound = findResultList[0];
-                strPersonStatus = mvEntryFound["employeeStatus"].Value;
+                
+                // Adding code----- 
+              //  if (mvEntryFound["employeeStatus"].IsPresent)
+              //  {
+                    strPersonStatus = mvEntryFound["employeeStatus"].Value;
+              //  }
+              //  ------------------
+
                 if (strPersonStatus == "3")
                 {
                     if (mvEntryFound["mail"].IsPresent)
