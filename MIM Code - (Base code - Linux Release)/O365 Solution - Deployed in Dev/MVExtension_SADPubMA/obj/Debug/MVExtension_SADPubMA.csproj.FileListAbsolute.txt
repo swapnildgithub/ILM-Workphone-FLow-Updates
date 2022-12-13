@@ -1,2 +1,0 @@
-C:\HR-Code\HR Code - Elanco Release\O365POC\MVExtension_SADPubMA\obj\Debug\MVExtension_SADPubMA.dll
-C:\HR-Code\HR Code - Elanco Release\O365POC\MVExtension_SADPubMA\obj\Debug\MVExtension_SADPubMA.pdb

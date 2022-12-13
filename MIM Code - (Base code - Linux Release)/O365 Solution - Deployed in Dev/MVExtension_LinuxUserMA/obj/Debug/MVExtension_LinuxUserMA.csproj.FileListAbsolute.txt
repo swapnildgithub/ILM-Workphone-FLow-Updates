@@ -1,4 +1,0 @@
-C:\Program Files\Microsoft Forefront Identity Manager\2010\Synchronization Service\Extensions\MVExtension_LinuxUserMA.dll
-C:\Program Files\Microsoft Forefront Identity Manager\2010\Synchronization Service\Extensions\MVExtension_LinuxUserMA.pdb
-C:\CODE\HR-Code\HCM and Workday Release\MIM Code - Task_3_IDM SAD mapping with Mnn changes\O365 Solution - with Mnn Changes\MVExtension_LinuxUserMA\obj\Debug\MVExtension_LinuxUserMA.dll
-C:\CODE\HR-Code\HCM and Workday Release\MIM Code - Task_3_IDM SAD mapping with Mnn changes\O365 Solution - with Mnn Changes\MVExtension_LinuxUserMA\obj\Debug\MVExtension_LinuxUserMA.pdb

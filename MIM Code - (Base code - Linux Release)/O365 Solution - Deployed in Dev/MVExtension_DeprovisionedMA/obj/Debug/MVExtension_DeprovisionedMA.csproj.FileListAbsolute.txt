@@ -1,3 +1,0 @@
-C:\HR-Code\HR Code - Elanco Release\O365POC\MVExtension_DeprovisionedMA\obj\Debug\MVExtension_DeprovisionedMA.csprojResolveAssemblyReference.cache
-C:\HR-Code\HR Code - Elanco Release\O365POC\MVExtension_DeprovisionedMA\obj\Debug\MVExtension_DeprovisionedMA.dll
-C:\HR-Code\HR Code - Elanco Release\O365POC\MVExtension_DeprovisionedMA\obj\Debug\MVExtension_DeprovisionedMA.pdb

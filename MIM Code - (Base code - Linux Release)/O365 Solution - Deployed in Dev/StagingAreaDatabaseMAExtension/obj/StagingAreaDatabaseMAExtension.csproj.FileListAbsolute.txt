@@ -1,6 +1,0 @@
-C:\Program Files\Microsoft Identity Integration Server\Extensions\StagingAreaDatabaseMAExtension.dll
-E:\ILM_POC\MA_Projects\StagingAreaDatabaseMAExtension\obj\Debug\ResolveAssemblyReference.cache
-E:\ILM_POC\MA_Projects\StagingAreaDatabaseMAExtension\obj\Debug\StagingAreaDatabaseMAExtension.dll
-E:\ILM_POC\MA_Projects\StagingAreaDatabaseMAExtension\obj\Debug\StagingAreaDatabaseMAExtension.pdb
-E:\ILM_POC\MA_Projects\StagingAreaDatabaseMAExtension\obj\Release\ResolveAssemblyReference.cache
-E:\ILM_POC\MA_Projects\StagingAreaDatabaseMAExtension\obj\Release\StagingAreaDatabaseMAExtension.dll

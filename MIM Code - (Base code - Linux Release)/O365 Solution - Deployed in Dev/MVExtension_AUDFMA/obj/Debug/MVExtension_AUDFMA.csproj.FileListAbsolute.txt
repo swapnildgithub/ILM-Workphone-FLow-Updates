@@ -1,3 +1,0 @@
-C:\HR-Code\HR Code - Elanco Release\O365POC\MVExtension_AUDFMA\obj\Debug\MVExtension_AUDFMA.csprojResolveAssemblyReference.cache
-C:\HR-Code\HR Code - Elanco Release\O365POC\MVExtension_AUDFMA\obj\Debug\MVExtension_AUDFMA.dll
-C:\HR-Code\HR Code - Elanco Release\O365POC\MVExtension_AUDFMA\obj\Debug\MVExtension_AUDFMA.pdb

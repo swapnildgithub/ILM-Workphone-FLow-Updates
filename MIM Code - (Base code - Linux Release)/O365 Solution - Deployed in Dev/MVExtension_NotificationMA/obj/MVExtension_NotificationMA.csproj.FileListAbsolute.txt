@@ -1,6 +1,0 @@
-C:\Program Files\Microsoft Identity Integration Server\Extensions\MVExtension_NotificationMA.dll
-E:\ILM_POC\MA_Projects\MVExtension_NotificationMA\obj\Debug\ResolveAssemblyReference.cache
-E:\ILM_POC\MA_Projects\MVExtension_NotificationMA\obj\Debug\MVExtension_NotificationMA.dll
-E:\ILM_POC\MA_Projects\MVExtension_NotificationMA\obj\Debug\MVExtension_NotificationMA.pdb
-E:\ILM_POC\MA_Projects\MVExtension_NotificationMA\obj\Release\ResolveAssemblyReference.cache
-E:\ILM_POC\MA_Projects\MVExtension_NotificationMA\obj\Release\MVExtension_NotificationMA.dll

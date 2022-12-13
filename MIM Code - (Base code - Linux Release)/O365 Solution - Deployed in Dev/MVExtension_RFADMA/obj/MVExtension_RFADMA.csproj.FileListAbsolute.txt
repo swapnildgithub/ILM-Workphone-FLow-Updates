@@ -1,6 +1,0 @@
-C:\Program Files\Microsoft Identity Integration Server\Extensions\MVExtension_RFADMA.dll
-E:\ILM_POC\MA_Projects\MVExtension_RFADMA\obj\Debug\ResolveAssemblyReference.cache
-E:\ILM_POC\MA_Projects\MVExtension_RFADMA\obj\Debug\MVExtension_RFADMA.dll
-E:\ILM_POC\MA_Projects\MVExtension_RFADMA\obj\Debug\MVExtension_RFADMA.pdb
-E:\ILM_POC\MA_Projects\MVExtension_RFADMA\obj\Release\ResolveAssemblyReference.cache
-E:\ILM_POC\MA_Projects\MVExtension_RFADMA\obj\Release\MVExtension_RFADMA.dll

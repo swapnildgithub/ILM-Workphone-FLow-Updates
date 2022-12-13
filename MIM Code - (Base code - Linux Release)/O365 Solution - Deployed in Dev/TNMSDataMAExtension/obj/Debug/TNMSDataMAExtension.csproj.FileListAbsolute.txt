@@ -1,2 +1,0 @@
-C:\HR-Code\HR Code - Elanco Release\O365POC\TNMSDataMAExtension\obj\Debug\TNMSDataMAExtension.dll
-C:\HR-Code\HR Code - Elanco Release\O365POC\TNMSDataMAExtension\obj\Debug\TNMSDataMAExtension.pdb

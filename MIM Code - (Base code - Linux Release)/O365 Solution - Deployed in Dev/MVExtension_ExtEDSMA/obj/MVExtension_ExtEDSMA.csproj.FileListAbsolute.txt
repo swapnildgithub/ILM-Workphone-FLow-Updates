@@ -1,6 +1,0 @@
-C:\Program Files\Microsoft Identity Integration Server\Extensions\MVExtension_ExtEDSMA.dll
-E:\ILM_POC\MA_Projects\MVExtension_ExtEDSMA\obj\Debug\ResolveAssemblyReference.cache
-E:\ILM_POC\MA_Projects\MVExtension_ExtEDSMA\obj\Debug\MVExtension_ExtEDSMA.dll
-E:\ILM_POC\MA_Projects\MVExtension_ExtEDSMA\obj\Debug\MVExtension_ExtEDSMA.pdb
-E:\ILM_POC\MA_Projects\MVExtension_ExtEDSMA\obj\Release\ResolveAssemblyReference.cache
-E:\ILM_POC\MA_Projects\MVExtension_ExtEDSMA\obj\Release\MVExtension_ExtEDSMA.dll
