@@ -21,6 +21,7 @@ C:\CODE\HR-Code\MIM_Linux Improvement Release July 2020\MIM Code - Linux Improve
 C:\CODE\HR-Code\WorkPhone Flow Updates - May 2021\MIM Code - (Base code - Linux Release)\O365 Solution\CommonLayer\obj\Debug\CommonLayer.csprojResolveAssemblyReference.cache
 C:\CODE\HR-Code\WorkPhone Flow Updates - May 2021\MIM Code - (Base code - Linux Release)\O365 Solution\CommonLayer\obj\Debug\CommonLayer.dll
 C:\CODE\HR-Code\WorkPhone Flow Updates - May 2021\MIM Code - (Base code - Linux Release)\O365 Solution\CommonLayer\obj\Debug\CommonLayer.pdb
+<<<<<<< HEAD
 C:\CODE\HR-Code\MIM Update for PPA GUID flow removal - April 2022\MIM Code - (PwdLastSet Updates for azure Token Revoke)\O365 Solution - Deployed in Dev\CommonLayer\obj\Debug\CommonLayer.csprojResolveAssemblyReference.cache
 C:\CODE\HR-Code\MIM Update for PPA GUID flow removal - April 2022\MIM Code - (PwdLastSet Updates for azure Token Revoke)\O365 Solution - Deployed in Dev\CommonLayer\obj\Debug\CommonLayer.dll
 C:\CODE\HR-Code\MIM Update for PPA GUID flow removal - April 2022\MIM Code - (PwdLastSet Updates for azure Token Revoke)\O365 Solution - Deployed in Dev\CommonLayer\obj\Debug\CommonLayer.pdb
@@ -30,3 +31,5 @@ C:\CODE\HR-Code\Mailnickname Update July 2022\MIM Code - (PPA_SVC_GUID Flow Upda
 C:\CODE\HR-Code\Mailnickname Update July 2022\MIM Code - (PPA_SVC_GUID Flow Update) - Krishna\O365 Solution - Deployed in Dev\CommonLayer\obj\Debug\CommonLayer.csprojResolveAssemblyReference.cache
 C:\CODE\HR-Code\Mailnickname Update July 2022\MIM Code - (PPA_SVC_GUID Flow Update) - Krishna\O365 Solution - Deployed in Dev\CommonLayer\obj\Debug\CommonLayer.dll
 C:\CODE\HR-Code\Mailnickname Update July 2022\MIM Code - (PPA_SVC_GUID Flow Update) - Krishna\O365 Solution - Deployed in Dev\CommonLayer\obj\Debug\CommonLayer.pdb
+=======
+>>>>>>> parent of ca5fa75... CHG1891516 - PPA GUID Flow Update - April 2022
